@@ -21,10 +21,7 @@ module.exports = (env, argv) => {
         context: __dirname,
         resolve: {
             modules: [path.resolve(__dirname, './src'), 'node_modules'],
-            extensions: ['.js', '.jsx', '.json'],
-            alias: {
-                reducers: path.resolve(__dirname, './src/reducers/reducers.js')
-            }
+            extensions: ['.js', '.jsx', '.json']
         },
         output: {
             filename: '[name].[contenthash].js',
