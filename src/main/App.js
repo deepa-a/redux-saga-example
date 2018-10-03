@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core';
 import theme from 'main/theme';
+import Header from 'main/Header';
 import Sidebar from 'main/Sidebar';
 import Main from 'main/Main';
 import Footer from 'main/Footer';
@@ -14,6 +15,7 @@ class App extends React.Component{
         return (
             <MuiThemeProvider theme={theme}>
                 <div className={classes.wrapper}>
+                    <Header />
                     <Sidebar></Sidebar>
                     <Main></Main>
                     <Footer></Footer>
