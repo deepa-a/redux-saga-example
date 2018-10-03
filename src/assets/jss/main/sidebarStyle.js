@@ -5,8 +5,8 @@ const sidebarStyle = theme => ({
         top: "0",
         bottom: "0",
         left: "0",
-        zIndex: "0",
-        width: 160
+        zIndex: theme.zIndex.drawer,
+        width: theme.drawerWidth
     }
 });
 
