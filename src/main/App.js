@@ -1,15 +1,31 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { MuiThemeProvider } from '@material-ui/core/styles';
-import theme from './theme'
+import { withStyles } from '@material-ui/core';
+import theme from 'main/theme';
+import Sidebar from 'main/Sidebar';
+import Main from 'main/Main';
+import Footer from 'main/Footer';
+import appStyle from 'assets/jss/main/appStyle';
 
 class App extends React.Component{
     render(){
+        const { classes } = this.props;
         return (
             <MuiThemeProvider theme={theme}>
-                <h1>I am an app and i am here!</h1>
+                <div className={classes.wrapper}>
+                    <Sidebar></Sidebar>
+                    <Main></Main>
+                    <Footer></Footer>
+                </div>
             </MuiThemeProvider>
         );
     }
 }
 
-export default App;
+App.propTypes = {
+    classes: PropTypes.object.isRequired
+};
+
+
+export default withStyles(appStyle)(App);
