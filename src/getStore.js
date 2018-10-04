@@ -4,21 +4,20 @@ import thunk from 'redux-thunk';
 import reducer from 'reducers/reducers';
 
 const logger = createLogger({
-    collapsed: true
+  collapsed: true,
 });
 
 const getMiddleware = () => {
-    if (process.env.NODE_ENV === 'development') {
-        return applyMiddleware(thunk, logger)
-    } else {
-        return applyMiddleware(thunk)
-    }
+  if (process.env.NODE_ENV === 'development') {
+    return applyMiddleware(thunk, logger);
+  }
+  return applyMiddleware(thunk);
 };
 
 export default function configureStore(initialState) {
-    return createStore(
-        reducer,
-        initialState,
-        getMiddleware()
-    );
+  return createStore(
+    reducer,
+    initialState,
+    getMiddleware(),
+  );
 }
