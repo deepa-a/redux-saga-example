@@ -1,5 +1,5 @@
 describe('app js', () => {
-    it('has a title', () => {
-        expect(false);
-    });
+  it('has a title', () => {
+    expect(false);
+  });
 });

@@ -1,9 +1,9 @@
-const appStyle = theme => ({
-    wrapper: {
-        position: "relative",
-        top: "0",
-        height: "100vh"
-    }
+const appStyle = ({
+  wrapper: {
+    position: 'relative',
+    top: '0',
+    height: '100vh',
+  },
 });
 
 export default appStyle;

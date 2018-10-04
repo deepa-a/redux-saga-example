@@ -9,24 +9,24 @@ import Main from 'main/Main';
 import Footer from 'main/Footer';
 import appStyle from 'assets/jss/main/appStyle';
 
-class App extends React.Component{
-    render(){
-        const { classes } = this.props;
-        return (
-            <MuiThemeProvider theme={theme}>
-                <div className={classes.wrapper}>
-                    <Header />
-                    <Sidebar></Sidebar>
-                    <Main></Main>
-                    <Footer></Footer>
-                </div>
-            </MuiThemeProvider>
-        );
-    }
+class App extends React.Component {
+  render() {
+    const { classes } = this.props;
+    return (
+      <MuiThemeProvider theme={theme}>
+        <div className={classes.wrapper}>
+          <Header />
+          <Sidebar />
+          <Main />
+          <Footer />
+        </div>
+      </MuiThemeProvider>
+    );
+  }
 }
 
 App.propTypes = {
-    classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 

@@ -5,25 +5,20 @@ import { withStyles } from '@material-ui/core';
 
 
 class Main extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render(){
-        const { classes } = this.props;
-        return(
-            <div className={classes.mainPanel} ref="mainPanel">
-                <div className={classes.content}>
-                    <div className={classes.container}>I am main</div>
-                </div>
-            </div>
-
-        )
-    }
+  render() {
+    const { classes } = this.props;
+    return (
+      <div className={classes.mainPanel}>
+        <div className={classes.content}>
+          <div className={classes.container}>I am main</div>
+        </div>
+      </div>
+    );
+  }
 }
 
 Main.propTypes = {
-    classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
 };
 
 export default withStyles(mainStyle)(Main);
