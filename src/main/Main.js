@@ -12,7 +12,7 @@ class Main extends React.Component {
       <div className={classes.mainPanel}>
         <div className={classes.content}>
           <div className={classes.container}>I am main</div>
-          {getSwitchRoute()}
+          { getSwitchRoute() }
         </div>
       </div>
     );
