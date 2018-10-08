@@ -28,13 +28,17 @@ module.exports = {
                 'extensions': ['.js', '.jsx'],
             }],
         'react/forbid-prop-types': 0,
-        "object-curly-newline": [
-            "error",
+        'object-curly-newline': [
+            'error',
             {
-                "ImportDeclaration": "never",
+                'ImportDeclaration': 'never',
             }
         ],
-        "react/jsx-one-expression-per-line": "never",
+        'react/jsx-one-expression-per-line': 'never',
+        'max-len': [
+          'error', {
+            'code': 150
+          }
+        ]
     }
 };
- 

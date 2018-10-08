@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import { getMainRoutes, getFundsRoutes } from './RouteList';
+import { mainRoutes, fundsRoutes, subscriberRoutes } from './RouteList';
 
 /**
  * A utility method to get the list of possible RouteSchema
@@ -9,12 +9,12 @@ import { getMainRoutes, getFundsRoutes } from './RouteList';
  *    based on whether MSISDN / BAID / Customer ID is selected or not.
  */
 export function getRouteList() {
-  const mainRoute = getMainRoutes();
+  // const mainRoute = getMainRoutes();
 
   /* TODO this variable should be fetched from redux store */
   const isSubscriberSelected = true;
 
-  return isSubscriberSelected ? mainRoute.concat(getFundsRoutes()) : mainRoute;
+  return isSubscriberSelected ? mainRoutes.concat(fundsRoutes).concat(subscriberRoutes) : mainRoutes;
 }
 
 /**
@@ -23,11 +23,10 @@ export function getRouteList() {
  *    the Switch depends on the state of MSISDN / BAID / Customer ID
  */
 export function getSwitchRoute() {
+  /* TODO routes can be passed in as an argument to use the same references
+      in both switch and navigation */
   const routes = getRouteList();
-  const reactRoute = [];
-  routes.forEach((value) => {
-    reactRoute.push(<Route key={value.path} path={value.path} component={value.component} />);
-  });
+  const reactRoute = routes.map(value => <Route key={value.path} path={value.path} component={value.component} />);
 
   return (
     <Switch>
