@@ -5,7 +5,7 @@
   "scripts": {
     "lint": "esw src --color",
     "lint-watch": "npm run lint -- --watch --fix",
-    "start": "webpack-dev-server --mode development --open --env.NODE_ENV=development",
+    "start": "webpack-dev-server --mode development --open --env.NODE_ENV=development --devtool source-map",
     "test": "jest --watchAll",
     "build": "webpack --mode production --env.NODE_ENV=demo1",
     "start-all": "npm-run-all --parallel start lint-watch test"
