@@ -4,13 +4,14 @@
   "private": true,
   "scripts": {
     "lint": "esw src --color",
-    "lint-watch": "npm run lint -- --watch",
+    "lint-watch": "npm run lint -- --watch --fix",
     "start": "webpack-dev-server --mode development --open --env.NODE_ENV=development",
     "test": "jest --watchAll",
     "build": "webpack --mode production --env.NODE_ENV=demo1",
     "start-all": "npm-run-all --parallel start lint-watch test"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.0.0",
     "@material-ui/core": "^3.1.2",
     "@material-ui/icons": "^3.0.1",
     "axios": "^0.18.0",
@@ -21,18 +22,19 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.3.1",
     "redux": "^4.0.0",
-    "redux-thunk": "^2.3.0",
-    "redux-logger": "^3.0.6"
+    "redux-logger": "^3.0.6",
+    "redux-saga": "^0.16.2",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-transform-regenerator": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
     "autoprefixer": "^9.1.5",
     "babel-cli": "6.26.0",
-    "babel-core": "6.26.3",
     "babel-eslint": "^8.2.6",
-    "babel-loader": "7.1.5",
-    "babel-preset-env": "1.7.0",
-    "babel-preset-react": "6.24.1",
-    "babel-preset-stage-3": "^6.24.1",
+    "babel-loader": "^8.0.4",
     "babel-register": "6.26.0",
     "case-sensitive-paths-webpack-plugin": "2.1.2",
     "chalk": "2.4.1",

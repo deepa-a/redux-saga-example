@@ -18,6 +18,7 @@ module.exports = (env, argv) => {
             API_BASE_URL = env_var.DEMO1_API_URL;
     }
     return {
+        entry: ["@babel/polyfill", "./src/index.js"],
         context: __dirname,
         resolve: {
             modules: [path.resolve(__dirname, './src'), 'node_modules'],
