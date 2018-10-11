@@ -8,6 +8,8 @@
     "start": "webpack-dev-server --mode development --open --env.NODE_ENV=development --devtool source-map",
     "test": "jest --env=jsdom --watchAll",
     "build": "webpack --mode production --env.NODE_ENV=demo1",
+    "reverse-proxy": "node src/utils/selfCareProxy.js",
+    "start-dev": "npm-run-all --parallel start reverse-proxy",
     "start-all": "npm-run-all --parallel start lint-watch test"
   },
   "dependencies": {
@@ -61,6 +63,7 @@
     "fs-extra": "7.0.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "http-proxy": "^1.17.0",
     "jest": "^23.6.0",
     "jest-cli": "^23.6.0",
     "mini-css-extract-plugin": "^0.4.3",
