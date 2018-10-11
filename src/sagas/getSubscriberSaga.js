@@ -1,5 +1,5 @@
-import { API_BASE_URL, ENDPOINTS } from 'constants/apiEndpoints';
-import axios from 'utils/axios';
+import { API_BASE_URL, ENDPOINTS } from '../constants/apiEndpoints';
+import axios from '../utils/axios';
 
 export function* getSubscriberSaga() {
   const json = yield axios.get('/subscribers/61444444444').then(response => {

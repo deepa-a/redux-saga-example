@@ -1,1 +1,1 @@
-export { getSubscriberSaga } from 'sagas/getSubscriberSaga';
+export { getSubscriberSaga } from '../sagas/getSubscriberSaga';

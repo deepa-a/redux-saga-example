@@ -1,4 +1,4 @@
-import { API_BASE_URL } from 'constants/apiEndpoints';
+import { API_BASE_URL } from '../constants/apiEndpoints';
 import axios from 'axios';
 
 const headers = {

@@ -13,6 +13,7 @@ module.exports = {
         "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
         "^(?!.*\\.(js|jsx|mjs|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
     },
+    setupTestFrameworkScriptFile: "<rootDir>/src/setupTests.js",
     transformIgnorePatterns: [
         "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|mjs)$"
     ],

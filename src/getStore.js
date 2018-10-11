@@ -1,9 +1,9 @@
 import { applyMiddleware, createStore } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
-import reducer from 'reducers/reducers';
+import reducer from './reducers/reducers';
 import createSagaMiddleware from 'redux-saga';
-import { initSagas } from 'initSagas';
+import { initSagas } from './initSagas';
 
 const logger = createLogger({
   collapsed: true,
