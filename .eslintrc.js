@@ -8,6 +8,13 @@ module.exports = {
     'parserOptions': {
         'ecmaVersion': 5,
     },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "paths": ["src"],
+            }
+        }
+    },
     'rules': {
         'indent': 2,
         'linebreak-style': [
@@ -26,7 +33,8 @@ module.exports = {
         'react/jsx-filename-extension': [
             1, {
                 'extensions': ['.js', '.jsx'],
-            }],
+            }
+        ],
         'react/forbid-prop-types': 0,
         'object-curly-newline': [
             'error',
@@ -37,8 +45,8 @@ module.exports = {
         'react/jsx-one-expression-per-line': 'never',
         'max-len': [
           'error', {
-            'code': 150
+            'code': 150,
           }
-        ]
-    }
+        ],
+    },
 };
