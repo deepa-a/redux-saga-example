@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Drawer } from '@material-ui/core';
-import sidebarStyle from '../assets/jss/main/sidebarStyle';
+import sidebarStyle from 'assets/jss/main/sidebarStyle';
 
 class Sidebar extends React.Component {
   render() {

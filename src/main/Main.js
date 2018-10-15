@@ -1,9 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import mainStyle from '../assets/jss/main/mainStyle';
 import { withStyles } from '@material-ui/core';
-import { getSwitchRoute } from '../route/RouteUtil';
-
+import mainStyle from 'assets/jss/main/mainStyle';
+import { getSwitchRoute } from 'route/RouteUtil';
 
 class Main extends React.Component {
   render() {

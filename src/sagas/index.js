@@ -1,1 +1,1 @@
-export { getSubscriberSaga } from '../sagas/getSubscriberSaga';
+import getSubscriberSaga from './getSubscriberSaga';
