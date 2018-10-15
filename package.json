@@ -5,11 +5,11 @@
   "scripts": {
     "lint": "esw src --color",
     "lint-watch": "npm run lint -- --watch --fix",
-    "start": "webpack-dev-server --mode development --open --env.NODE_ENV=development --devtool source-map",
     "test": "jest --env=jsdom --watchAll",
     "build": "webpack --mode production --env.NODE_ENV=demo1",
     "reverse-proxy": "node src/utils/selfCareProxy.js",
-    "start-dev": "npm-run-all --parallel start reverse-proxy",
+    "start-dev": "webpack-dev-server --mode development --open --env.NODE_ENV=development --devtool source-map",
+    "start": "npm-run-all --parallel reverse-proxy start-dev",
     "start-all": "npm-run-all --parallel start lint-watch test"
   },
   "dependencies": {
@@ -19,6 +19,7 @@
     "axios": "^0.18.0",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.6.0",
+    "http-proxy": "^1.17.0",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
@@ -63,7 +64,6 @@
     "fs-extra": "7.0.0",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
-    "http-proxy": "^1.17.0",
     "jest": "^23.6.0",
     "jest-cli": "^23.6.0",
     "mini-css-extract-plugin": "^0.4.3",

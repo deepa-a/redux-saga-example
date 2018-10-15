@@ -1,17 +1,17 @@
 import React from 'react';
 import { mount, unmount } from 'enzyme';
-import Header from '../main/Header';
+import Header from './Header';
 
 let wrapped;
 
 beforeEach(() => {
-    wrapped = mount(<Header />);
+  wrapped = mount(<Header />);
 });
 
 it('Show a text header', () => {
-    expect(wrapped.text()).toEqual('Header');
+  expect(wrapped.text()).toEqual('Header');
 });
 
 afterEach(() => {
-    wrapped.unmount();
+  wrapped.unmount();
 });
