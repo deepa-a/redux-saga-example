@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import headerStyle from 'assets/jss/main/headerStyle';
+import headerStyle from '../assets/jss/main/headerStyle';
 import { AppBar, withStyles } from '@material-ui/core';
 
 class Header extends React.Component {

@@ -1,6 +1,6 @@
+import '@babel/polyfill';
 import 'assets/css/normalize.css';
 import 'assets/css/index.css';
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
