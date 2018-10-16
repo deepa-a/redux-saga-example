@@ -7,7 +7,7 @@ const mainStyle = ({
     maxHeight: '100%',
   },
   content: {
-    marginTop: '15px',
+    marginTop: '40px',
     padding: '30px 15px',
     minHeight: 'calc(100vh - 123px)',
   },

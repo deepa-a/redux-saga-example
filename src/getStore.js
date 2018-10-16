@@ -3,7 +3,7 @@ import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
 import createSagaMiddleware from 'redux-saga';
 import reducer from './reducers/reducers';
-import { initSagas } from './initSagas';
+import rootSaga from './sagas';
 
 const logger = createLogger({
   collapsed: true,
@@ -25,6 +25,7 @@ export default function configureStore(initialState) {
     getMiddleware(),
   );
 
-  initSagas(sagaMiddleware);
+  sagaMiddleware.run(rootSaga);
+
   return store;
 }
