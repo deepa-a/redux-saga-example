@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core';
-import footerStyle from '../assets/jss/main/footerStyle';
+import footerStyle from 'assets/jss/main/footerStyle';
 
 function Footer({ ...props }) {
   const { classes } = props;
