@@ -10,7 +10,6 @@ class Main extends React.Component {
     return (
       <div className={classes.mainPanel}>
         <div className={classes.content}>
-          <div className={classes.container}>I am main</div>
           { getSwitchRoute() }
         </div>
       </div>

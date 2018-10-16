@@ -26,7 +26,7 @@ export function getSwitchRoute() {
   /* TODO routes can be passed in as an argument to use the same references
       in both switch and navigation */
   const routes = getRouteList();
-  const reactRoute = routes.map(value => <Route key={value.path} path={value.path} component={value.component} />);
+  const reactRoute = routes.map(value => <Route exact={value.exact} key={value.path} path={value.path} component={value.component} />);
 
   return (
     <Switch>

@@ -1,4 +1,6 @@
 import React from 'react';
+import Home from 'components/Home';
+import SubscriberDetails from 'components/SubscriberDetails';
 import RouteSchema from './RouteSchema';
 
 /* TODO delete this component when all the components are replaced */
@@ -12,6 +14,7 @@ class InterimComponent extends React.Component {
   * Define all routes
   */
 /* Main routes */
+const home = new RouteSchema('/', Home, null, null, true);
 const voucher = new RouteSchema('/voucher', InterimComponent, null, null);
 const manageCustomer = new RouteSchema('/management/customer', InterimComponent, null, null);
 const billingAccount = new RouteSchema('/management/billing-account', InterimComponent, null, null);
@@ -28,7 +31,7 @@ const fundsCommercialOffer = new RouteSchema('/funds/commercial-offer', InterimC
 const fundsRedeemVoucher = new RouteSchema('/funds/redeem-voucher', InterimComponent, null, null);
 
 /* Subscriber routes */
-const subscriberDetails = new RouteSchema('/subscriber-details', InterimComponent, null, null);
+const subscriberDetails = new RouteSchema('/subscriber-details', SubscriberDetails, null, null);
 const history = new RouteSchema('/history', InterimComponent, null, null);
 const bundles = new RouteSchema('/bundles', InterimComponent, null, null);
 const familyAndFriend = new RouteSchema('/family-and-friend', InterimComponent, null, null);
@@ -42,6 +45,7 @@ const sessions = new RouteSchema('/sessions', InterimComponent, null, null);
  * Get default route list
  */
 export const mainRoutes = [
+  home,
   voucher,
   manageCustomer,
   billingAccount,

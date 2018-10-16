@@ -2,8 +2,8 @@ import axios from 'axios';
 import { API_BASE_URL } from 'constants/apiEndpoints';
 
 const headers = {
-  'ocs-client-id': 'mocca',
-  'ocs-user-id': 'mocca_admin',
+  // 'ocs-client-id': 'mocca',
+  // 'ocs-user-id': 'mocca_admin',
   'Content-Type': 'application/json',
 };
 
