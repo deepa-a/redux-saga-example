@@ -19,7 +19,6 @@ class Home extends React.Component {
         <h1>Search subscriber</h1>
         <input type="text" name="Subscriber" />
         <button onClick={actions.getSubscriber}>Get Subscriber</button>
-
       </div>
     );
   }
@@ -27,6 +26,7 @@ class Home extends React.Component {
 
 Home.propTypes = {
   actions: PropTypes.object.isRequired,
+  subscriberDetails: PropTypes.object,
 };
 
 const mapStateToProps = (state, ownprops) => {
@@ -34,7 +34,6 @@ const mapStateToProps = (state, ownprops) => {
         subscriberDetails: state.subscriber.details
     }
 };
-
 
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(subscriberActions, dispatch),

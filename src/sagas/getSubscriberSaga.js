@@ -6,7 +6,8 @@ import { browserHistory } from 'react-router';
 
 function* fetchSubscriberDetails() {
   const subscriberDetails = yield axios.get('/subscribers/61444444444').then((response) => {
-   return response.data;
+      sessionStorage.setItem('msisdn', response.data.msisdn);
+      return response.data;
   });
 
   yield put({ type: types.SUBSCRIBER_RECEIVED, data: subscriberDetails });

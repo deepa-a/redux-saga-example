@@ -16,7 +16,6 @@ class SubscriberDetails extends React.Component {
     }
 }
 
-
 SubscriberDetails.propTypes = {
     subscriberDetails: PropTypes.object.isRequired,
 };
@@ -26,6 +25,5 @@ const mapStateToProps = (state, ownprops) => {
         subscriberDetails: state.subscriber.details
     }
 };
-
 
 export default connect(mapStateToProps, null)(SubscriberDetails);
