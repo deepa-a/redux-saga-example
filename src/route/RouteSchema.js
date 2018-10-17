@@ -7,7 +7,7 @@ class RouteSchema {
     this.component = component;
     this.label = label;
     this.icon = icon;
-    this.exact = exact
+    this.exact = exact;
   }
 }
 

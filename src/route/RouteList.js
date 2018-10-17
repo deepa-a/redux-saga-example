@@ -11,41 +11,44 @@ class InterimComponent extends React.Component {
 }
 
 /**
-  * Define all routes
-  */
-/* Main routes */
-const home = new RouteSchema('/', Home, null, null, true);
-const voucher = new RouteSchema('/voucher', InterimComponent, null, null);
-const manageCustomer = new RouteSchema('/management/customer', InterimComponent, null, null);
-const billingAccount = new RouteSchema('/management/billing-account', InterimComponent, null, null);
-const manageSubscriber = new RouteSchema('/management/subscriber', InterimComponent, null, null);
-const sharedArrangements = new RouteSchema('/shared-arrangements', InterimComponent, null, null);
-const ttiWeb = new RouteSchema('/TTI_WEB', InterimComponent, null, null);
+ * Define all routes
+ */
+/* Default routes */
+const home = new RouteSchema('/', Home, 'Home', null, true);
+const voucher = new RouteSchema('/voucher', InterimComponent, 'Voucher', null);
+const manageCustomer = new RouteSchema('/management/customer', InterimComponent, 'Manage Customer', null);
+const billingAccount = new RouteSchema('/management/billing-account', InterimComponent, 'Manage Billing Account', null);
+const manageSubscriber = new RouteSchema('/management/subscriber', InterimComponent, 'Manage Subscriber', null);
+const sharedArrangements = new RouteSchema('/shared-arrangements', InterimComponent, 'Shared Arrangements', null);
+const ttiWeb = new RouteSchema('/TTI_WEB', InterimComponent, 'VMS Management GUI', null);
 
 /* Funds routes */
-const fundsRecharge = new RouteSchema('/funds/recharge', InterimComponent, null, null);
-const fundsAdjustments = new RouteSchema('/funds/adjustments', InterimComponent, null, null);
-const fundsImmediateChanging = new RouteSchema('/funds/immediate-changing', InterimComponent, null, null);
-const fundsPurchaseBundle = new RouteSchema('/funds/purchase-bundle', InterimComponent, null, null);
-const fundsCommercialOffer = new RouteSchema('/funds/commercial-offer', InterimComponent, null, null);
-const fundsRedeemVoucher = new RouteSchema('/funds/redeem-voucher', InterimComponent, null, null);
+const fundsRecharge = new RouteSchema('/funds/recharge', InterimComponent, 'Recharge', null);
+const fundsAdjustments = new RouteSchema('/funds/adjustments', InterimComponent, 'Adjustments', null);
+const fundsImmediateChanging = new RouteSchema('/funds/immediate-changing', InterimComponent, 'Immediate Charging', null);
+const fundsPurchaseBundle = new RouteSchema('/funds/purchase-bundle', InterimComponent, 'Purchase Bundle', null);
+const fundsCommercialOffer = new RouteSchema('/funds/commercial-offer', InterimComponent, 'Commercial Offer', null);
+const fundsRedeemVoucher = new RouteSchema('/funds/redeem-voucher', InterimComponent, 'Redeem Voucher', null);
 
 /* Subscriber routes */
-const subscriberDetails = new RouteSchema('/subscriber-details', SubscriberDetails, null, null);
-const history = new RouteSchema('/history', InterimComponent, null, null);
-const bundles = new RouteSchema('/bundles', InterimComponent, null, null);
-const familyAndFriend = new RouteSchema('/family-and-friend', InterimComponent, null, null);
-const lowCreditManagement = new RouteSchema('/low-credit-management', InterimComponent, null, null);
-const notifications = new RouteSchema('/notifications', InterimComponent, null, null);
-const subscriptions = new RouteSchema('/subscriptions', InterimComponent, null, null);
-const spendLimits = new RouteSchema('/spend-limits', InterimComponent, null, null);
-const sessions = new RouteSchema('/sessions', InterimComponent, null, null);
+const subscriberDetails = new RouteSchema('/subscriber-details', SubscriberDetails, 'Subscriber Details', null);
+const history = new RouteSchema('/history', InterimComponent, 'History', null);
+const bundles = new RouteSchema('/bundles', InterimComponent, 'Bundles', null);
+const familyAndFriend = new RouteSchema('/family-and-friend', InterimComponent, 'Family & Friends', null);
+const lowCreditManagement = new RouteSchema('/low-credit-management', InterimComponent, 'Low Credit Management', null);
+const notifications = new RouteSchema('/notifications', InterimComponent, 'Notifications', null);
+const subscriptions = new RouteSchema('/subscriptions', InterimComponent, 'Subscriptions', null);
+const spendLimits = new RouteSchema('/spend-limits', InterimComponent, 'Spend Limits', null);
+const sessions = new RouteSchema('/sessions', InterimComponent, 'Sessions', null);
 
 /**
- * Get default route list
+ * Get default routes
  */
-export const mainRoutes = [
+export const homeRoute = [
   home,
+];
+
+export const otherRoutes = [
   voucher,
   manageCustomer,
   billingAccount,
@@ -55,7 +58,7 @@ export const mainRoutes = [
 ];
 
 /**
- * Get route list for Funds functionalities
+ * Get Funds routes
  */
 export const fundsRoutes = [
   fundsRecharge,

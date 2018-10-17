@@ -2,10 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles, Drawer } from '@material-ui/core';
 import sidebarStyle from 'assets/jss/main/sidebarStyle';
+// import mainRoutes from 'route/RouteList';
+import { getNavList } from 'route/RouteUtil';
+import NavList from 'components/NavList';
 
 class Sidebar extends React.Component {
   render() {
     const { classes } = this.props;
+    const navList = getNavList();
+    // debugger;
     return (
       <div>
         <Drawer
@@ -16,7 +21,7 @@ class Sidebar extends React.Component {
             paper: classes.drawerPaper,
           }}
         >
-         Sidebar
+          <NavList navList={navList} />
         </Drawer>
       </div>
     );
