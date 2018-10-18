@@ -60,7 +60,7 @@ const authJson = http.createServer((req, res) => {
       res.setHeader('Access-Control-Allow-Origin', '*');
       res.setHeader('Access-Control-Allow-Methods', 'GET,POST');
       res.setHeader('Access-Control-Allow-Headers', 'application/json');
-      
+
       res.end(data);
     }
   });

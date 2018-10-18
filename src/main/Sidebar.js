@@ -8,11 +8,10 @@ import NavList from 'components/NavList';
 import { hasRight } from 'utils/auth';
 
 class Sidebar extends React.Component {
-
-  getNavList(){
-      if(this.props.rights){
-          //tODO hasRight('right from the route list schema', this.props.rights)
-      }
+  getNavList() {
+    if (this.props.rights) {
+      // tODO hasRight('right from the route list schema', this.props.rights)
+    }
   }
 
   render() {
@@ -29,7 +28,7 @@ class Sidebar extends React.Component {
             paper: classes.drawerPaper,
           }}
         >
-            {this.getNavList()}
+          {this.getNavList()}
           <NavList navList={navList} />
         </Drawer>
       </div>
@@ -42,7 +41,7 @@ Sidebar.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    rights: state.auth.rights,
+  rights: state.auth.rights,
 });
 
 export default withStyles(sidebarStyle)(connect(mapStateToProps)(Sidebar));
