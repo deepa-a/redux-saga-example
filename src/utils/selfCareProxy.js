@@ -56,6 +56,11 @@ const authJson = http.createServer((req, res) => {
       res.end(`Error getting the file: ${err}.`);
     } else {
       res.setHeader('Content-type', 'application/json' || 'text/plain');
+      res.setHeader('Access-Control-Allow-Credentials', true);
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'GET,POST');
+      res.setHeader('Access-Control-Allow-Headers', 'application/json');
+      
       res.end(data);
     }
   });
