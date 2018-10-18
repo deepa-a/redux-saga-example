@@ -12,4 +12,22 @@ const instance = axios.create({
   baseURL: `${API_BASE_URL}`,
 });
 
+instance.interceptors.request.use(config => config,
+  error => Promise.reject(error));
+
+instance.interceptors.response.use(response => response,
+  (error) => {
+    if (!error.response) {
+      console.log('Network error');
+    } else {
+      if (error.response.status === 401 || error.response.status === 403) {
+        console.log('Not authorized');
+      }
+      if (error.response.status === 500) {
+        console.log(error.response.data);
+      }
+    }
+    return Promise.reject(error);
+  });
+
 export default instance;

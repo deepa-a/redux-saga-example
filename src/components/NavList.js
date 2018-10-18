@@ -8,7 +8,7 @@ class NavList extends React.Component {
     return (
       <React.Fragment>
         <ul className="card-list">
-          {navList.home.map((item, idx) => {
+          {navList.home.map((item) => {
             const card = (
               <li className="card" key={item.path}>
                 <Link to={item.path} className="pulsing-load">
@@ -20,7 +20,7 @@ class NavList extends React.Component {
           })}
         </ul>
         <ul className="card-list">
-          {navList.subscriber.map((item, idx) => {
+          {navList.subscriber.map((item) => {
             const card = (
               <li className="card" key={item.path}>
                 <Link to={item.path} className="pulsing-load">
@@ -32,7 +32,7 @@ class NavList extends React.Component {
           })}
         </ul>
         <ul className="card-list">
-          {navList.funds.map((item, idx) => {
+          {navList.funds.map((item) => {
             const card = (
               <li className="card" key={item.path}>
                 <Link to={item.path} className="pulsing-load">
@@ -44,7 +44,7 @@ class NavList extends React.Component {
           })}
         </ul>
         <ul className="card-list">
-          {navList.others.map((item, idx) => {
+          {navList.others.map((item) => {
             const card = (
               <li className="card" key={item.path}>
                 <Link to={item.path} className="pulsing-load">

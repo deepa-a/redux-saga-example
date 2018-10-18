@@ -13,14 +13,16 @@ class Home extends React.Component {
 
   shouldComponentUpdate(nextProps) {
     this.redir = nextProps.subscriberDetails ? <Redirect to="/subscriber-details" /> : null;
+    return true;
   }
 
   render() {
-    const { actions } = this.props;
+    const { actions, error } = this.props;
 
     return (
       <div>
         {this.redir}
+        {error && <h3>Error: {error.response.data}</h3>}
         <h1>Search subscriber</h1>
         <input type="text" name="Subscriber" />
         <button type="button" onClick={actions.getSubscriber}>Get Subscriber</button>
@@ -32,10 +34,12 @@ class Home extends React.Component {
 Home.propTypes = {
   actions: PropTypes.object.isRequired,
   subscriberDetails: PropTypes.object,
+  error: PropTypes.object,
 };
 
 const mapStateToProps = state => ({
   subscriberDetails: state.subscriber.details,
+  error: state.subscriber.error,
 });
 
 const mapDispatchToProps = dispatch => ({
