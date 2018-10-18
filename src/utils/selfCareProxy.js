@@ -7,6 +7,9 @@ const targetUrl = 'http://10.50.30.121:8200/';
 // Surrogate server local listening port
 const port = '5050';
 
+const fs = require('fs');
+const path = require('path');
+
 // Must set CORS headers to avoid CORB in Chrome (doesn't work in Firefox)
 reverseProxy.on('proxyRes', (proxyRes, req, res) => {
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -42,3 +45,20 @@ surrogate.listen(port);
 
 console.log(`-- Listening on port ${port}`);
 console.log();
+
+const authJson = http.createServer((req, res) => {
+  const filePath = path.join(__dirname, 'auth.json');
+
+  // Read the authorisations from a JSON file
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+      res.statusCode = 500;
+      res.end(`Error getting the file: ${err}.`);
+    } else {
+      res.setHeader('Content-type', 'application/json' || 'text/plain');
+      res.end(data);
+    }
+  });
+});
+
+authJson.listen(5060);
