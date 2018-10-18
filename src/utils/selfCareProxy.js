@@ -47,7 +47,7 @@ console.log(`-- Listening on port ${port}`);
 console.log();
 
 const authJson = http.createServer((req, res) => {
-  const filePath = path.join(__dirname, 'auth.json');
+  const filePath = path.join(__dirname, 'roles.json');
 
   // Read the authorisations from a JSON file
   fs.readFile(filePath, (err, data) => {
