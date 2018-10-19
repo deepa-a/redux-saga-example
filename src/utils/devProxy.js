@@ -44,7 +44,7 @@ const surrogate = http.createServer((req, res) => {
 
 surrogate.listen(proxyPort);
 
-console.log(`-- Listening on port ${proxyPort}`);
+console.log(`-- Selfcare proxy is listening on port ${proxyPort}`);
 console.log();
 
 const rolesJson = http.createServer((req, res) => {
@@ -66,5 +66,5 @@ const rolesJson = http.createServer((req, res) => {
 
 rolesJson.listen(rolesPort);
 
-console.log(`-- Listening on port ${rolesPort}`);
+console.log(`-- Rights proxy is listening on port ${rolesPort}`);
 console.log();

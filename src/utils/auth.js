@@ -1,3 +1,3 @@
-export const hasRight = (right, rights) => {
-    rights.some(right => rights.includes(right));
+export const hasRight = (rights, routeRight) => {
+  return rights.includes(routeRight.toUpperCase());
 };

@@ -3,7 +3,6 @@ import * as types from 'actions/actionTypes';
 import { API_BASE_URL, ENDPOINTS } from '../constants/apiEndpoints';
 import axios from '../utils/axios';
 
-
 function setMsisdn(msisdn) {
   sessionStorage.setItem('msisdn', JSON.stringify(msisdn));
 }
@@ -21,7 +20,6 @@ function* fetchSubscriberDetails() {
     yield put({ type: types.SUBSCRIBER_REQUEST_FAILED, error });
   }
 }
-
 
 export function* subscriberWatcher() {
   yield takeLatest(types.GET_SUBSCRIBER, fetchSubscriberDetails);
