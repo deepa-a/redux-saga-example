@@ -8,13 +8,13 @@ import NavList from 'components/NavList';
 import { hasRight } from 'utils/auth';
 
 class Sidebar extends React.Component {
-  filterNavList(navList) {
+  navListFilter(navList) {
     const { rights } = this.props;
     const navs = {};
 
     if (rights) {
-      Object.keys(navList).map((p) => {
-        navs[p] = navList[p].filter(route => hasRight(rights, route.right));
+      Object.keys(navList).map((submenu) => {
+        navs[submenu] = navList[submenu].filter(route => hasRight(rights, route.rights));
         return true;
       });
     }
@@ -24,7 +24,7 @@ class Sidebar extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const navList = this.filterNavList(getNavList());
+    const navList = this.navListFilter(getNavList());
 
     return (
       <div>

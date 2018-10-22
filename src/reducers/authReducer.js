@@ -1,6 +1,6 @@
 import * as types from 'actions/actionTypes';
 
-export default function authReducer(state = { rights: [] }, action = null) {
+export default function authReducer(state = {}, action = null) {
   switch (action.type) {
     case types.GET_USER_ROLES:
       return { ...state };

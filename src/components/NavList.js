@@ -8,9 +8,9 @@ class NavList extends React.Component {
 
     return (
       <React.Fragment>
-        {Object.keys(navList).map(cat => (
-          <ul key={cat}>
-            {navList[cat].map(item => (
+        {Object.keys(navList).map(submenu => (
+          <ul key={submenu}>
+            {navList[submenu].map(item => (
               <li key={item.path}>
                 <Link to={item.path}>
                   {item.label}

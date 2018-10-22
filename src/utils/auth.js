@@ -1,3 +1,3 @@
-export const hasRight = (rights, routeRight) => {
-  return rights.includes(routeRight.toUpperCase());
+export const hasRight = (userRights, routeRights) => {
+  return routeRights.every(right => userRights.includes(right.toUpperCase()));
 };
