@@ -6,7 +6,7 @@ import RouteSchema from './RouteSchema';
 /* TODO delete this component when all the components are replaced */
 class InterimComponent extends React.Component {
   render() {
-    return (<h1>This is a temporay screen.<br /> Replace me with the actual component</h1>);
+    return (<h1>This is a temporary screen.<br /> Replace me with the actual component</h1>);
   }
 }
 
