@@ -1,16 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { withStyles, Drawer } from '@material-ui/core';
 import sidebarStyle from 'assets/jss/main/sidebarStyle';
-// import mainRoutes from 'route/RouteList';
 import { getNavList } from 'route/RouteUtil';
 import NavList from 'components/NavList';
+import { hasRight } from 'utils/auth';
 
 class Sidebar extends React.Component {
+  navListFilter(navList) {
+    const { rights } = this.props;
+    const navs = {};
+
+    if (rights.length > 0) {
+      Object.keys(navList).map((submenu) => {
+        navs[submenu] = navList[submenu].filter(route => hasRight(rights, route.rights));
+        return true;
+      });
+    }
+    return navs;
+  }
+
   render() {
     const { classes } = this.props;
-    const navList = getNavList();
-    // debugger;
+    const navList = this.navListFilter(getNavList());
+
     return (
       <div>
         <Drawer
@@ -30,6 +44,11 @@ class Sidebar extends React.Component {
 
 Sidebar.propTypes = {
   classes: PropTypes.object.isRequired,
+  rights: PropTypes.array.isRequired,
 };
 
-export default withStyles(sidebarStyle)(Sidebar);
+const mapStateToProps = state => ({
+  rights: state.auth.rights,
+});
+
+export default withStyles(sidebarStyle)(connect(mapStateToProps)(Sidebar));

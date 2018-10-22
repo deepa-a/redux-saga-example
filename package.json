@@ -7,7 +7,7 @@
     "lint-watch": "npm run lint -- --watch --fix",
     "test": "jest --env=jsdom --watchAll",
     "build": "webpack --mode production --env.NODE_ENV=demo1",
-    "reverse-proxy": "node src/utils/selfCareProxy.js",
+    "reverse-proxy": "node src/utils/devProxy.js",
     "start-dev": "webpack-dev-server --mode development --open --env.NODE_ENV=development --devtool source-map",
     "start": "npm-run-all --parallel reverse-proxy start-dev",
     "start-all": "npm-run-all --parallel start lint-watch test"

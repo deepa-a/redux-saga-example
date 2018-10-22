@@ -2,10 +2,14 @@ const http = require('http');
 const httpProxy = require('http-proxy');
 // Reverse proxy for the surrogate server to consume
 const reverseProxy = httpProxy.createProxyServer();
+const fs = require('fs');
+const path = require('path');
 // Actual URL of the selfcare server
 const targetUrl = 'http://10.50.30.121:8200/';
 // Surrogate server local listening port
-const port = '5050';
+const proxyPort = '5050';
+const rolesPort = '5060';
+const rolesFilename = 'roles.json';
 
 // Must set CORS headers to avoid CORB in Chrome (doesn't work in Firefox)
 reverseProxy.on('proxyRes', (proxyRes, req, res) => {
@@ -38,7 +42,29 @@ const surrogate = http.createServer((req, res) => {
   reverseProxy.web(req, res, { target: targetUrl });
 });
 
-surrogate.listen(port);
+surrogate.listen(proxyPort);
 
-console.log(`-- Listening on port ${port}`);
+console.log(`-- Selfcare proxy is listening on port ${proxyPort}`);
+console.log();
+
+const rolesJson = http.createServer((req, res) => {
+  // Read the roles from a local JSON file
+  fs.readFile(path.join(__dirname, rolesFilename), (err, data) => {
+    if (err) {
+      res.statusCode = 500;
+      res.end(`Error getting the file: ${err}.`);
+    } else {
+      res.setHeader('Content-type', 'application/json' || 'text/plain');
+      res.setHeader('Access-Control-Allow-Credentials', true);
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'GET,POST');
+      res.setHeader('Access-Control-Allow-Headers', 'application/json');
+      res.end(data);
+    }
+  });
+});
+
+rolesJson.listen(rolesPort);
+
+console.log(`-- Rights proxy is listening on port ${rolesPort}`);
 console.log();
