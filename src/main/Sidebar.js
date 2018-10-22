@@ -12,13 +12,12 @@ class Sidebar extends React.Component {
     const { rights } = this.props;
     const navs = {};
 
-    if (rights) {
+    if (rights.length > 0) {
       Object.keys(navList).map((submenu) => {
         navs[submenu] = navList[submenu].filter(route => hasRight(rights, route.rights));
         return true;
       });
     }
-
     return navs;
   }
 

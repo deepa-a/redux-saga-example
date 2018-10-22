@@ -22,7 +22,7 @@ class Home extends React.Component {
     return (
       <div>
         {this.redir}
-        {error && <h3>Error: {error.response.data}</h3>}
+        {error && (<h3>Error: {error.response.data}</h3>)}
         <h1>Search subscriber</h1>
         <input type="text" name="Subscriber" />
         <button type="button" onClick={actions.getSubscriber}>Get Subscriber</button>

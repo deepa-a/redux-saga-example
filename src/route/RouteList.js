@@ -40,7 +40,6 @@ const notifications = new RouteSchema('/notifications', InterimComponent, 'Notif
 const subscriptions = new RouteSchema('/subscriptions', InterimComponent, 'Subscriptions', null, false, ['MOCCA_READ_SUBSCRIPTION']);
 const spendLimits = new RouteSchema('/spend-limits', InterimComponent, 'Spend Limits', null, false, ['MOCCA_READ_SPEND_LIMIT']);
 const sessions = new RouteSchema('/sessions', InterimComponent, 'Sessions', null, false, ['MOCCA_READ_SESSION']);
-
 /**
  * Get default routes
  */
