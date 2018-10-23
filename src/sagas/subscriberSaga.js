@@ -14,7 +14,27 @@ function getMsisdn() {
   return JSON.parse(sessionStorage.getItem('msisdn'));
 }
 
-function* fetchSubscriberDetails(msisdn) {
+export function* createSubscriber(action) {
+  try{
+    const { subscriber } = action;
+    const subscriberDetails = yield axios.post('/subscribers', subscriber).then(response => response.data);
+    yield put({ type: types.CREATE_SUBSCRIBER_SUCCESS, data: subscriberDetails });
+  } catch (error) {
+    yield put({ type: types.CREATE_SUBSCRIBER_FAILED, error });
+  }
+}
+
+export function* updateSubscriber(action) {
+    try{
+        const { subscriber } = action;
+        const subscriberDetails = yield axios.patch('/subscribers', subscriber).then(response => response.data);
+        yield put({ type: types.UPDATE_SUBSCRIBER_SUCCESS, data: subscriberDetails });
+    } catch (error) {
+        yield put({ type: types.UPDATE_SUBSCRIBER_FAILED, error });
+    }
+}
+
+function* fetchSubscriberDetails(msisdn, action) {
   try {
     const subscriberDetails = yield axios.get('/subscribers/61444444444').then(response => response.data);
     yield call(setMsisdn, subscriberDetails.msisdn);
@@ -40,3 +60,4 @@ export function* subscriberWatcher() {
     }
   }
 }
+

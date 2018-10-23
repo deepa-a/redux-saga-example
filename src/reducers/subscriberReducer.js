@@ -8,6 +8,12 @@ export default function subscriberReducer(state = {}, action = null) {
       return { ...state, subscriberDetails: action.data };
     case types.SUBSCRIBER_REQUEST_FAILED:
       return { ...state, error: action.error };
+    case types.CREATE_SUBSCRIBER:
+      return { ...state };
+    case types.CREATE_SUBSCRIBER_SUCCESS:
+      return { ...state, subscriberDetails: action.data };
+    case types.CREATE_SUBSCRIBER_FAILED:
+      return { ...state, error: action.error };
     case types.GET_SUB_BILLING_ACCOUNT:
       return { ...state };
     case types.SUB_BILLING_ACCOUNT_RECEIVED:
