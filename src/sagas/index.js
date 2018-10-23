@@ -5,11 +5,10 @@ import * as types from 'actions/actionTypes';
 
 export default function* rootSaga() {
   yield all([
-    takeLatest(types.GET_USER_ROLES, fetchUserRoles),
+    fork(fetchUserRoles),
+    fork(subscriberWatcher),
     takeLatest(types.CREATE_SUBSCRIBER, createSubscriber),
     takeLatest(types.UPDATE_SUBSCRIBER, updateSubscriber),
-    fork(subscriberWatcher),
-    put({type: types.GET_USER_ROLES}),
     /*put({type: types.CREATE_SUBSCRIBER, subscriber: {accountProfile: "10BOOSTM",
         baid: "",
         commercialOffer: "3GPPCAP",
