@@ -13,3 +13,23 @@ export function* fetchCustomerDetails(obj) {
     yield put({ type: action, error });
   }
 }
+
+export function* createCustomer(action) {
+  try {
+    const { customer } = action;
+    const customerDetails = yield axios.post('/customers', customer).then(response => response.data);
+    yield put({ type: types.CREATE_CUSTOMER_SUCCESS, data: customerDetails });
+  } catch (error) {
+    yield put({ type: types.CREATE_CUSTOMER_FAILED, error });
+  }
+}
+
+export function* updateCustomer(action) {
+    try{
+        const { customer } = action;
+        const customerDetails = yield axios.patch('/customers', customer).then(response => response.data);
+        yield put({ type: types.UPDATE_CUSTOMER_SUCCESS, data: customerDetails });
+    } catch (error) {
+        yield put({ type: types.UPDATE_CUSTOMER_FAILED, error });
+    }
+}

@@ -13,3 +13,23 @@ export function* fetchBillingAccountDetails(obj) {
     yield put({ type: action, error });
   }
 }
+
+export function* createBillingAccount(action) {
+    try {
+        const { billingAccount } = action;
+        const billingDetails = yield axios.post('/billingaccounts', billingAccount).then(response => response.data);
+        yield put({ type: types.CREATE_BILLING_ACCOUNT_SUCCESS, data: billingDetails });
+    } catch (error) {
+        yield put({ type: types.CREATE_BILLING_ACCOUNT_FAILED, error });
+    }
+}
+
+export function* updateBillingAccount(action) {
+    try{
+        const { billingAccount } = action;
+        const billingDetails = yield axios.patch('/billingaccounts', billingAccount).then(response => response.data);
+        yield put({ type: types.UPDATE_BILLING_ACCOUNT_SUCCESS, data: billingDetails });
+    } catch (error) {
+        yield put({ type: types.UPDATE_BILLING_ACCOUNT_FAILED, error });
+    }
+}
