@@ -1,4 +1,4 @@
-import { call, put, take, takeLatest, select } from 'redux-saga/effects';
+import { call, put, take, takeLatest, select, actionChannel } from 'redux-saga/effects';
 import * as types from 'actions/actionTypes';
 import { API_BASE_URL, ENDPOINTS } from '../constants/apiEndpoints';
 import axios from '../utils/axios';
@@ -27,13 +27,18 @@ function* fetchSubscriberDetails(msisdn) {
 }
 
 export function* subscriberWatcher() {
-  while (yield take(types.GET_SUBSCRIBER)) {
-    yield* fetchSubscriberDetails();
-    const subscriber = yield select(getSubscriber);
-    yield put({ type: types.GET_BILLING_ACCOUNT });
-    yield* fetchBillingAccountDetails(subscriber.details.baid);
+  let subChannel = yield actionChannel(types.GET_SUBSCRIBER);
+  while (yield take(subChannel)) {
+    yield call(fetchSubscriberDetails);
+    const subscriber= yield select(getSubscriber);
+    if(subscriber.details.baid) {
+        yield put({type: types.GET_BILLING_ACCOUNT});
+        yield call(fetchBillingAccountDetails, subscriber.details.baid);
+    }
     const billingAccount = yield select(getBillingAccount);
-    yield put({ type: types.GET_CUSTOMER });
-    yield* fetchCustomerDetails(billingAccount.details.customerId);
+    if(billingAccount.details.customerId) {
+        yield put({type: types.GET_CUSTOMER});
+        yield call(fetchCustomerDetails, billingAccount.details.customerId);
+    }
   }
 }
