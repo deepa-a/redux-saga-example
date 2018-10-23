@@ -1,6 +1,6 @@
 import * as types from 'actions/actionTypes';
 
-export default function subscriberReducer(state = {}, action = null) {
+export default function subscriberReducer(state = { isLoading: false }, action = null) {
   switch (action.type) {
     case types.GET_SUBSCRIBER:
       return { ...state, isLoading: true };
