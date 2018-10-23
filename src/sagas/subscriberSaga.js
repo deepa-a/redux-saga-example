@@ -4,9 +4,7 @@ import { API_BASE_URL, ENDPOINTS } from '../constants/apiEndpoints';
 import axios from '../utils/axios';
 import { fetchBillingAccountDetails } from './billingAccountSaga';
 import { fetchCustomerDetails } from './customerSaga';
-
-const getSubscriber = state => state.subscriber;
-const getBillingAccount = state => state.billingAccount;
+import { getSubscriberBaid, getCustomerId } from 'selectors';
 
 function setMsisdn(msisdn) {
   sessionStorage.setItem('msisdn', JSON.stringify(msisdn));
@@ -30,15 +28,15 @@ export function* subscriberWatcher() {
   let subChannel = yield actionChannel(types.GET_SUBSCRIBER);
   while (yield take(subChannel)) {
     yield call(fetchSubscriberDetails);
-    const subscriber= yield select(getSubscriber);
-    if(subscriber.details.baid) {
-        yield put({type: types.GET_BILLING_ACCOUNT});
-        yield call(fetchBillingAccountDetails, subscriber.details.baid);
+    const baid= yield select(getSubscriberBaid);
+    if(baid) {
+      yield put({type: types.GET_SUB_BILLING_ACCOUNT});
+      yield call(fetchBillingAccountDetails, {baid: baid, flag: 'SUB'});
     }
-    const billingAccount = yield select(getBillingAccount);
-    if(billingAccount.details.customerId) {
-        yield put({type: types.GET_CUSTOMER});
-        yield call(fetchCustomerDetails, billingAccount.details.customerId);
+    const customerId = yield select(getCustomerId);
+    if(customerId) {
+      yield put({type: types.GET_SUB_CUSTOMER});
+      yield call(fetchCustomerDetails, {customerId: customerId, flag: 'SUB'});
     }
   }
 }

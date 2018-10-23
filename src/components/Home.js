@@ -38,7 +38,7 @@ Home.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  subscriberDetails: state.subscriber.details,
+  subscriberDetails: state.subscriber.subscriberDetails,
   error: state.subscriber.error,
 });
 
