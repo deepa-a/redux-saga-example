@@ -17,7 +17,7 @@ function getMsisdn() {
 export function* createSubscriber(action) {
   try {
     const { subscriber } = action;
-    const subscriberDetails = yield axios.post('/subscribers', subscriber).then(response => response.data);
+    const subscriberDetails = yield axios.post(`${ENDPOINTS.SUBSCRIBER.POST.URL}`, subscriber).then(response => response.data);
     yield put({ type: types.CREATE_SUBSCRIBER_SUCCESS, data: subscriberDetails });
   } catch (error) {
     yield put({ type: types.CREATE_SUBSCRIBER_FAILED, error });
@@ -27,7 +27,7 @@ export function* createSubscriber(action) {
 export function* updateSubscriber(action) {
   try {
     const { subscriber, msisdn } = action;
-    const subscriberDetails = yield axios.patch(`/subscribers/${msisdn}`, subscriber).then(response => response.data);
+    const subscriberDetails = yield axios.patch(`${ENDPOINTS.SUBSCRIBER.PATCH.URL}${msisdn}`, subscriber).then(response => response.data);
     yield put({ type: types.UPDATE_SUBSCRIBER_SUCCESS, data: subscriberDetails });
   } catch (error) {
     yield put({ type: types.UPDATE_SUBSCRIBER_FAILED, error });
@@ -37,7 +37,7 @@ export function* updateSubscriber(action) {
 function* fetchSubscriberDetails(action) {
   try {
     const { msisdn } = action;
-    const subscriberDetails = yield axios.get('/subscribers/61411111111').then(response => response.data);
+    const subscriberDetails = yield axios.get(`${ENDPOINTS.SUBSCRIBER.GET.URL}${msisdn}`).then(response => response.data);
     yield call(setMsisdn, subscriberDetails.msisdn);
     yield put({ type: types.SUBSCRIBER_RECEIVED, data: subscriberDetails });
   } catch (error) {
