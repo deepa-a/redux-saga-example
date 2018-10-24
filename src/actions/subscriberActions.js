@@ -1,14 +1,13 @@
 import * as types from './actionTypes';
 
-export function getSubscriber() {
-  return { type: types.GET_SUBSCRIBER };
+export function getSubscriber(msisdn) {
+  return { type: types.GET_SUBSCRIBER, msisdn };
 }
 
 export function createSubscriber(subscriber) {
-    return { type: types.CREATE_SUBSCRIBER, subscriber }
+  return { type: types.CREATE_SUBSCRIBER, subscriber };
 }
 
-export function updateSubscriber(subscriber) {
-    return { type: types.UPDATE_SUBSCRIBER, subscriber }
+export function updateSubscriber(subscriber, msisdn) {
+  return { type: types.UPDATE_SUBSCRIBER, subscriber, msisdn };
 }
-

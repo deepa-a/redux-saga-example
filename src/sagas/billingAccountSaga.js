@@ -5,31 +5,31 @@ import axios from '../utils/axios';
 
 export function* fetchBillingAccountDetails(obj) {
   try {
-    const action = (obj.flag === 'SUB')? types.SUB_BILLING_ACCOUNT_RECEIVED : types.BILLING_ACCOUNT_RECEIVED;
+    const action = (obj.flag === 'SUB') ? types.SUB_BILLING_ACCOUNT_RECEIVED : types.BILLING_ACCOUNT_RECEIVED;
     const billingAccountDetails = yield axios.get(`billingaccounts/${obj.baid}`).then(response => response.data);
     yield put({ type: action, data: billingAccountDetails });
   } catch (error) {
-    const action = (obj.flag === 'SUB')? types.SUB_BILLING_ACCOUNT_REQUEST_FAILED : types.BILLING_ACCOUNT_REQUEST_FAILED;
+    const action = (obj.flag === 'SUB') ? types.SUB_BILLING_ACCOUNT_REQUEST_FAILED : types.BILLING_ACCOUNT_REQUEST_FAILED;
     yield put({ type: action, error });
   }
 }
 
 export function* createBillingAccount(action) {
-    try {
-        const { billingAccount } = action;
-        const billingDetails = yield axios.post('/billingaccounts', billingAccount).then(response => response.data);
-        yield put({ type: types.CREATE_BILLING_ACCOUNT_SUCCESS, data: billingDetails });
-    } catch (error) {
-        yield put({ type: types.CREATE_BILLING_ACCOUNT_FAILED, error });
-    }
+  try {
+    const { billingAccount } = action;
+    const billingDetails = yield axios.post('/billingaccounts', billingAccount).then(response => response.data);
+    yield put({ type: types.CREATE_BILLING_ACCOUNT_SUCCESS, data: billingDetails });
+  } catch (error) {
+    yield put({ type: types.CREATE_BILLING_ACCOUNT_FAILED, error });
+  }
 }
 
 export function* updateBillingAccount(action) {
-    try{
-        const { billingAccount } = action;
-        const billingDetails = yield axios.patch('/billingaccounts', billingAccount).then(response => response.data);
-        yield put({ type: types.UPDATE_BILLING_ACCOUNT_SUCCESS, data: billingDetails });
-    } catch (error) {
-        yield put({ type: types.UPDATE_BILLING_ACCOUNT_FAILED, error });
-    }
+  try {
+    const { billingAccount } = action;
+    const billingDetails = yield axios.patch('/billingaccounts', billingAccount).then(response => response.data);
+    yield put({ type: types.UPDATE_BILLING_ACCOUNT_SUCCESS, data: billingDetails });
+  } catch (error) {
+    yield put({ type: types.UPDATE_BILLING_ACCOUNT_FAILED, error });
+  }
 }

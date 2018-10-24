@@ -5,10 +5,9 @@ export function getBillingAccount() {
 }
 
 export function createBillingAccount(billingAccount) {
-    return { type: types.CREATE_BILLING_ACCOUNT, billingAccount }
+  return { type: types.CREATE_BILLING_ACCOUNT, billingAccount };
 }
 
 export function updateBillingAccount(billingAccount) {
-    return { type: types.UPDATE_BILLING_ACCOUNT, billingAccount }
+  return { type: types.UPDATE_BILLING_ACCOUNT, billingAccount };
 }
-

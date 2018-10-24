@@ -5,7 +5,7 @@ const reverseProxy = httpProxy.createProxyServer();
 const fs = require('fs');
 const path = require('path');
 // Actual URL of the selfcare server
-const targetUrl = 'http://10.50.30.121:8200/';
+const targetUrl = 'http://10.50.30.132:8200/';
 // Surrogate server local listening port
 const proxyPort = '5050';
 const rolesPort = '5060';
@@ -43,6 +43,7 @@ const surrogate = http.createServer((req, res) => {
     req.headers = {
       'ocs-user-id': 'mocca_admin',
       'ocs-client-id': 'mocca',
+      'Content-Type': 'application/json',
     };
 
     // Using 'web' mode to relay the requests

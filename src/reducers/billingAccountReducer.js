@@ -19,7 +19,7 @@ export default function billingAccountReducer(state = { isLoading: false }, acti
     case types.UPDATE_BILLING_ACCOUNT_SUCCESS:
       return { ...state, isLoading: false, billingDetails: action.data };
     case types.UPDATE_BILLING_ACCOUNT_FAILED:
-          return { ...state, isLoading: false, error: action.error };
+      return { ...state, isLoading: false, error: action.error };
     default:
       return state;
   }

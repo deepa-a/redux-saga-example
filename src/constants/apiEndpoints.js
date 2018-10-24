@@ -3,7 +3,13 @@ export const API_BASE_URL = `${process.env.API_BASE_URL}/ocsia-selfcare/prepaid/
 export const ENDPOINTS = {
   SUBSCRIBER: {
     GET: {
+      URL: 'subscribers/',
+    },
+    POST: {
       URL: 'subscribers',
+    },
+    PATCH: {
+      URL: 'subscribers/',
     },
   },
 };

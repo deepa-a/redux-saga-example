@@ -1,10 +1,10 @@
 import { call, put, take, takeLatest, select, actionChannel } from 'redux-saga/effects';
 import * as types from 'actions/actionTypes';
+import { getSubscriberBaid, getCustomerId } from 'selectors';
 import { API_BASE_URL, ENDPOINTS } from '../constants/apiEndpoints';
 import axios from '../utils/axios';
 import { fetchBillingAccountDetails } from './billingAccountSaga';
 import { fetchCustomerDetails } from './customerSaga';
-import { getSubscriberBaid, getCustomerId } from 'selectors';
 
 function setMsisdn(msisdn) {
   sessionStorage.setItem('msisdn', JSON.stringify(msisdn));
@@ -15,7 +15,7 @@ function getMsisdn() {
 }
 
 export function* createSubscriber(action) {
-  try{
+  try {
     const { subscriber } = action;
     const subscriberDetails = yield axios.post('/subscribers', subscriber).then(response => response.data);
     yield put({ type: types.CREATE_SUBSCRIBER_SUCCESS, data: subscriberDetails });
@@ -25,18 +25,19 @@ export function* createSubscriber(action) {
 }
 
 export function* updateSubscriber(action) {
-    try{
-        const { subscriber } = action;
-        const subscriberDetails = yield axios.patch('/subscribers', subscriber).then(response => response.data);
-        yield put({ type: types.UPDATE_SUBSCRIBER_SUCCESS, data: subscriberDetails });
-    } catch (error) {
-        yield put({ type: types.UPDATE_SUBSCRIBER_FAILED, error });
-    }
+  try {
+    const { subscriber, msisdn } = action;
+    const subscriberDetails = yield axios.patch(`/subscribers/${msisdn}`, subscriber).then(response => response.data);
+    yield put({ type: types.UPDATE_SUBSCRIBER_SUCCESS, data: subscriberDetails });
+  } catch (error) {
+    yield put({ type: types.UPDATE_SUBSCRIBER_FAILED, error });
+  }
 }
 
-function* fetchSubscriberDetails(msisdn, action) {
+function* fetchSubscriberDetails(action) {
   try {
-    const subscriberDetails = yield axios.get('/subscribers/61444444444').then(response => response.data);
+    const { msisdn } = action;
+    const subscriberDetails = yield axios.get('/subscribers/61411111111').then(response => response.data);
     yield call(setMsisdn, subscriberDetails.msisdn);
     yield put({ type: types.SUBSCRIBER_RECEIVED, data: subscriberDetails });
   } catch (error) {
@@ -45,19 +46,19 @@ function* fetchSubscriberDetails(msisdn, action) {
 }
 
 export function* subscriberWatcher() {
-  let subChannel = yield actionChannel(types.GET_SUBSCRIBER);
-  while (yield take(subChannel)) {
-    yield call(fetchSubscriberDetails);
-    const baid= yield select(getSubscriberBaid);
-    if(baid) {
-      yield put({type: types.GET_SUB_BILLING_ACCOUNT});
-      yield call(fetchBillingAccountDetails, {baid: baid, flag: 'SUB'});
+  const subChannel = yield actionChannel(types.GET_SUBSCRIBER);
+  while (true) {
+    const action = yield take(subChannel);
+    const response = yield call(fetchSubscriberDetails, action);
+    const baid = yield select(getSubscriberBaid);
+    if (baid) {
+      yield put({ type: types.GET_SUB_BILLING_ACCOUNT });
+      yield call(fetchBillingAccountDetails, { baid, flag: 'SUB' });
     }
     const customerId = yield select(getCustomerId);
-    if(customerId) {
-      yield put({type: types.GET_SUB_CUSTOMER});
-      yield call(fetchCustomerDetails, {customerId: customerId, flag: 'SUB'});
+    if (customerId) {
+      yield put({ type: types.GET_SUB_CUSTOMER });
+      yield call(fetchCustomerDetails, { customerId, flag: 'SUB' });
     }
   }
 }
-

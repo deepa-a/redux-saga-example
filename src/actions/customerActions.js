@@ -5,10 +5,9 @@ export function getCustomer() {
 }
 
 export function createCustomer(customer) {
-    return { type: types.CREATE_CUSTOMER, customer }
+  return { type: types.CREATE_CUSTOMER, customer };
 }
 
 export function updateCustomer(customer) {
-    return { type: types.UPDATE_CUSTOMER, customer }
+  return { type: types.UPDATE_CUSTOMER, customer };
 }
-

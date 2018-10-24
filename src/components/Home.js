@@ -23,12 +23,14 @@ class Home extends React.Component {
       <div>
         {this.redir}
         {error && <h3>Error: {error.response.data}</h3>}
-        {isLoading? <h1>Loading ...</h1> :
-          <div>
-            <h1>Search subscriber</h1>
-            <input type="text" name="Subscriber" />
-            <button type="button" onClick={actions.getSubscriber}>Get Subscriber</button>
-          </div>
+        {isLoading ? <h1>Loading ...</h1>
+          : (
+            <div>
+              <h1>Search subscriber</h1>
+              <input type="text" name="Subscriber" />
+              <button type="button" onClick={() => actions.getSubscriber('61444444444')}>Get Subscriber</button>
+            </div>
+          )
         }
       </div>
     );

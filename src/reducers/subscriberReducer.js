@@ -19,7 +19,7 @@ export default function subscriberReducer(state = { isLoading: false }, action =
     case types.SUB_BILLING_ACCOUNT_RECEIVED:
       return { ...state, isLoading: false, billingDetails: action.data };
     case types.SUB_BILLING_ACCOUNT_REQUEST_FAILED:
-          return { ...state, isLoading: false, error: action.error };
+      return { ...state, isLoading: false, error: action.error };
     case types.GET_SUB_CUSTOMER:
       return { ...state, isLoading: true };
     case types.SUB_CUSTOMER_RECEIVED:

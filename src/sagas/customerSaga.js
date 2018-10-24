@@ -5,11 +5,11 @@ import axios from '../utils/axios';
 
 export function* fetchCustomerDetails(obj) {
   try {
-    const action = (obj.flag === 'SUB')? types.SUB_CUSTOMER_RECEIVED : types.CUSTOMER_RECEIVED;
+    const action = (obj.flag === 'SUB') ? types.SUB_CUSTOMER_RECEIVED : types.CUSTOMER_RECEIVED;
     const customerDetails = yield axios.get(`customers/${obj.customerId}`).then(response => response.data);
     yield put({ type: action, data: customerDetails });
   } catch (error) {
-    const action = (obj.flag === 'SUB')? types.SUB_CUSTOMER_REQUEST_FAILED : types.CUSTOMER_REQUEST_FAILED;
+    const action = (obj.flag === 'SUB') ? types.SUB_CUSTOMER_REQUEST_FAILED : types.CUSTOMER_REQUEST_FAILED;
     yield put({ type: action, error });
   }
 }
@@ -25,11 +25,11 @@ export function* createCustomer(action) {
 }
 
 export function* updateCustomer(action) {
-    try{
-        const { customer } = action;
-        const customerDetails = yield axios.patch('/customers', customer).then(response => response.data);
-        yield put({ type: types.UPDATE_CUSTOMER_SUCCESS, data: customerDetails });
-    } catch (error) {
-        yield put({ type: types.UPDATE_CUSTOMER_FAILED, error });
-    }
+  try {
+    const { customer } = action;
+    const customerDetails = yield axios.patch('/customers', customer).then(response => response.data);
+    yield put({ type: types.UPDATE_CUSTOMER_SUCCESS, data: customerDetails });
+  } catch (error) {
+    yield put({ type: types.UPDATE_CUSTOMER_FAILED, error });
+  }
 }
