@@ -1,5 +1,5 @@
-import { call, put, take, takeLatest, select } from 'redux-saga/effects';
-import * as types from 'actions/actionTypes';
+import { all, call, put, take, takeLatest, select } from 'redux-saga/effects';
+import * as types from '../actions/actionTypes';
 import { API_BASE_URL, ENDPOINTS } from '../constants/apiEndpoints';
 import axios from '../utils/axios';
 
@@ -33,4 +33,12 @@ export function* updateCustomer(action) {
   } catch (error) {
     yield put({ type: types.UPDATE_CUSTOMER_FAILED, error });
   }
+}
+
+export function* customerSaga() {
+  yield all([
+    takeLatest(types.GET_CUSTOMER, fetchCustomerDetails),
+    takeLatest(types.CREATE_CUSTOMER, createCustomer),
+    takeLatest(types.UPDATE_CUSTOMER, updateCustomer),
+  ])
 }

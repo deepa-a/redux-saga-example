@@ -1,23 +1,18 @@
 import { all, fork, put, takeLatest } from 'redux-saga/effects';
-import { subscriberWatcher, createSubscriber, updateSubscriber } from 'sagas/subscriberSaga';
-import { fetchCustomerDetails, createCustomer, updateCustomer } from 'sagas/customerSaga';
-import { fetchBillingAccountDetails, createBillingAccount, updateBillingAccount } from 'sagas/billingAccountSaga';
+import { subscriberWatcher, subscriberSaga } from 'sagas/subscriberSaga';
+import { customerSaga } from 'sagas/customerSaga';
+import { billingAccountSaga } from 'sagas/billingAccountSaga';
 import * as types from 'actions/actionTypes';
 import { fetchUserRoles } from './getUserRolesSaga';
 
 export default function* rootSaga() {
   yield all([
-    fork(fetchUserRoles),
-    fork(subscriberWatcher),
-    takeLatest(types.CREATE_SUBSCRIBER, createSubscriber),
-    takeLatest(types.UPDATE_SUBSCRIBER, updateSubscriber),
-    takeLatest(types.GET_CUSTOMER, fetchCustomerDetails),
-    takeLatest(types.CREATE_CUSTOMER, createCustomer),
-    takeLatest(types.UPDATE_CUSTOMER, updateCustomer),
-    takeLatest(types.GET_BILLING_ACCOUNT, fetchBillingAccountDetails),
-    takeLatest(types.CREATE_BILLING_ACCOUNT, createBillingAccount),
-    takeLatest(types.UPDATE_BILLING_ACCOUNT, updateBillingAccount),
-    /* put({type: types.CREATE_SUBSCRIBER, subscriber: {
+    fetchUserRoles(),
+    subscriberWatcher(),
+    subscriberSaga(),
+    billingAccountSaga(),
+    customerSaga(),
+      /*put({type: types.CREATE_SUBSCRIBER, subscriber: {
         "accountProfile": "3GMID00",
         "baid": "",
         "commercialOffer": "2GPPLUS",
@@ -29,7 +24,7 @@ export default function* rootSaga() {
         "serviceProviderId": "0002",
         "status": "PREACTIVE"
     }})
-      put({type: types.UPDATE_SUBSCRIBER, subscriber: {
+       put({type: types.UPDATE_SUBSCRIBER, subscriber: {
           "accountProfile": "10BOOSTM",
           "baid": "",
       }, msisdn: '61411111111'})

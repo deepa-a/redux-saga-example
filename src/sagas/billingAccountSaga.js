@@ -1,5 +1,5 @@
-import { call, put, take, takeLatest, select } from 'redux-saga/effects';
-import * as types from 'actions/actionTypes';
+import { all, call, put, take, takeLatest, select } from 'redux-saga/effects';
+import * as types from '../actions/actionTypes';
 import { API_BASE_URL, ENDPOINTS } from '../constants/apiEndpoints';
 import axios from '../utils/axios';
 
@@ -33,4 +33,12 @@ export function* updateBillingAccount(action) {
   } catch (error) {
     yield put({ type: types.UPDATE_BILLING_ACCOUNT_FAILED, error });
   }
+}
+
+export function* billingAccountSaga() {
+    yield all([
+      takeLatest(types.CREATE_BILLING_ACCOUNT, createBillingAccount),
+      takeLatest(types.GET_BILLING_ACCOUNT, fetchBillingAccountDetails),
+      takeLatest(types.UPDATE_BILLING_ACCOUNT, updateBillingAccount),
+    ])
 }

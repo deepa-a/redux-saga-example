@@ -1,6 +1,6 @@
-import { call, put, take, takeLatest, select, actionChannel } from 'redux-saga/effects';
-import * as types from 'actions/actionTypes';
-import { getSubscriberBaid, getCustomerId } from 'selectors';
+import { all, call, put, take, takeLatest, select, actionChannel } from 'redux-saga/effects';
+import * as types from '../actions/actionTypes';
+import { getSubscriberBaid, getCustomerId } from '../selectors';
 import { API_BASE_URL, ENDPOINTS } from '../constants/apiEndpoints';
 import axios from '../utils/axios';
 import { fetchBillingAccountDetails } from './billingAccountSaga';
@@ -14,7 +14,7 @@ function getMsisdn() {
   return JSON.parse(sessionStorage.getItem('msisdn'));
 }
 
-export function* createSubscriber(action) {
+function* createSubscriber(action) {
   try {
     const { subscriber } = action;
     const subscriberDetails = yield axios.post(`${ENDPOINTS.SUBSCRIBER.POST.URL}`, subscriber).then(response => response.data);
@@ -24,7 +24,7 @@ export function* createSubscriber(action) {
   }
 }
 
-export function* updateSubscriber(action) {
+function* updateSubscriber(action) {
   try {
     const { subscriber, msisdn } = action;
     const subscriberDetails = yield axios.patch(`${ENDPOINTS.SUBSCRIBER.PATCH.URL}${msisdn}`, subscriber).then(response => response.data);
@@ -34,7 +34,7 @@ export function* updateSubscriber(action) {
   }
 }
 
-function* fetchSubscriberDetails(action) {
+export function* fetchSubscriberDetails(action) {
   try {
     const { msisdn } = action;
     const subscriberDetails = yield axios.get(`${ENDPOINTS.SUBSCRIBER.GET.URL}${msisdn}`).then(response => response.data);
@@ -61,4 +61,11 @@ export function* subscriberWatcher() {
       yield call(fetchCustomerDetails, { customerId, flag: 'SUB' });
     }
   }
+}
+
+export function* subscriberSaga() {
+    yield all( [
+        takeLatest(types.CREATE_SUBSCRIBER, createSubscriber),
+        takeLatest(types.UPDATE_SUBSCRIBER, updateSubscriber),
+    ])
 }
