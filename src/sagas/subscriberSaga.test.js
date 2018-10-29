@@ -8,7 +8,9 @@ import {
     createSubscriber,
     updateSubscriber,
     fetchSubscriberDetails,
-    subscriberWatcher
+    subscriberWatcher,
+    fetchSubscriber,
+    setMsisdn
 } from '../sagas/subscriberSaga';
 
 import * as types from '../actions/actionTypes';
@@ -16,10 +18,6 @@ import { fetchBillingAccountDetails } from '../sagas/billingAccountSaga';
 import { fetchCustomerDetails } from '../sagas/customerSaga';
 import { getSubscriberBaid, getCustomerId } from '../selectors';
 import {  ENDPOINTS } from '../constants/apiEndpoints';
-
-beforeEach(() => {
-   moxios.install();
-});
 
 describe('can watch get subscriber action', () => {
     const generator = subscriberWatcher();
@@ -46,22 +44,55 @@ describe('can watch get subscriber action', () => {
     });
 });
 
-it('can fetch subscriber', (done) => {
-    const msisdn = '61411111111';
+describe('Fetch subscriber details', () => {
+    it('can fetch subscriber successfully', () => {
+        const action = {
+            msisdn: "61411111111",
+            type: "GET_SUBSCRIBER"
+        };
+        const response = {"msisdn":"61411111111","baid":"3402000425","balances":[],"counters":[{"balanceId":"2","templateId":21112,"units":"Money","value":0,"type":"CURRENCY","balanceName":"INTERNAL","expiryDate":null,"startDate":null,"isSharedBundle":false,"initialAmount":"infinity"}],"accountType":"PrePaid","imsi":"505155412545985","serviceProviderId":"0002","glCode":"SMGNT","accountProfile":"10BOOSTT","commercialOffer":"2GPPLUS","email":"","brandName":"Telstra","isTestService":false,"status":"PREACTIVE","spaName":null,"creationDate":"2018-10-24T11:33:31.000+11:00","beginValidityDate":"2018-10-24T11:33:31.000+11:00","endValidityDate":"2020-10-23T23:59:59.000+11:00","beginActivityDate":"2018-10-24T11:33:31.000+11:00","endActivityDate":"2020-10-23T23:59:59.000+11:00","endInactivityDate":"2019-04-27T11:33:31.000+10:00","lowCreditSettings":{"isAutoPaymentEnabled":false,"autoPaymentTriggerThreshold":0,"autoPaymentAmount":0,"isWarningEnabled":false,"warningThreshold":0},"spendLimits":[],"isVoucherTopupEnabled":true,"failedVoucherTopupAttempts":0,"hasHadFirstEvent":true,"isSuspended":false,"language":"EN","customAttributes":{},"mainBalance":{"balanceId":null,"templateId":null,"units":null,"value":0,"type":null,"balanceName":null,"expiryDate":null,"startDate":null,"isSharedBundle":false,"initialAmount":null},"notificationPreferences":{"channels":["sms"],"disableAll":false,"enableMarketingNotifications":null,"enableLowCreditNotifications":false,"options":[{"name":"sms"},{"name":"email"}]},"fnf":null,"lastRechargeAmount":0,"lastRechargeDate":null,"lastTopupProfile":null,"lastCommercialOffer":null,"ocsstatus":"Preactive","spaId":null};
+        const generator = fetchSubscriberDetails(action);
 
-    let onFulfilled = sinon.spy();
-    moxios.stubRequest(`${ENDPOINTS.SUBSCRIBER.GET.URL}${msisdn}`, {
-      status: 200,
-      response: {"msisdn":"61411111111","baid":"3402000425","balances":[],"counters":[{"balanceId":"2","templateId":21112,"units":"Money","value":0,"type":"CURRENCY","balanceName":"INTERNAL","expiryDate":null,"startDate":null,"isSharedBundle":false,"initialAmount":"infinity"}],"accountType":"PrePaid","imsi":"505155412545985","serviceProviderId":"0002","glCode":"SMGNT","accountProfile":"10BOOSTT","commercialOffer":"2GPPLUS","email":"","brandName":"Telstra","isTestService":false,"status":"PREACTIVE","spaName":null,"creationDate":"2018-10-24T11:33:31.000+11:00","beginValidityDate":"2018-10-24T11:33:31.000+11:00","endValidityDate":"2020-10-23T23:59:59.000+11:00","beginActivityDate":"2018-10-24T11:33:31.000+11:00","endActivityDate":"2020-10-23T23:59:59.000+11:00","endInactivityDate":"2019-04-27T11:33:31.000+10:00","lowCreditSettings":{"isAutoPaymentEnabled":false,"autoPaymentTriggerThreshold":0,"autoPaymentAmount":0,"isWarningEnabled":false,"warningThreshold":0},"spendLimits":[],"isVoucherTopupEnabled":true,"failedVoucherTopupAttempts":0,"hasHadFirstEvent":true,"isSuspended":false,"language":"EN","customAttributes":{},"mainBalance":{"balanceId":null,"templateId":null,"units":null,"value":0,"type":null,"balanceName":null,"expiryDate":null,"startDate":null,"isSharedBundle":false,"initialAmount":null},"notificationPreferences":{"channels":["sms"],"disableAll":false,"enableMarketingNotifications":null,"enableLowCreditNotifications":false,"options":[{"name":"sms"},{"name":"email"}]},"fnf":null,"lastRechargeAmount":0,"lastRechargeDate":null,"lastTopupProfile":null,"lastCommercialOffer":null,"ocsstatus":"Preactive","spaId":null}
+        expect(generator.next(action.msisdn).value).toEqual(call(fetchSubscriber, action.msisdn));
+        expect(generator.next(response).value).toEqual(call(setMsisdn, response.msisdn));
+        expect(generator.next(response).value).toEqual(put({ type: types.SUBSCRIBER_RECEIVED, data: response }))
+
     });
-    axios.get(`${ENDPOINTS.SUBSCRIBER.GET.URL}${msisdn}`).then(onFulfilled);
-    moxios.wait(() => {
-      expect(onFulfilled.called).toEqual(true);
-      expect(onFulfilled.getCall(0).args[0].data.msisdn).toEqual('61411111111');
-      done();
+
+    it('can handle exception', () => {
+        const action = {
+            msisdn: "61411111111",
+            type: "GET_SUBSCRIBER"
+        };
+        const response = {"msisdn":"61411111111","baid":"3402000425","balances":[],"counters":[{"balanceId":"2","templateId":21112,"units":"Money","value":0,"type":"CURRENCY","balanceName":"INTERNAL","expiryDate":null,"startDate":null,"isSharedBundle":false,"initialAmount":"infinity"}],"accountType":"PrePaid","imsi":"505155412545985","serviceProviderId":"0002","glCode":"SMGNT","accountProfile":"10BOOSTT","commercialOffer":"2GPPLUS","email":"","brandName":"Telstra","isTestService":false,"status":"PREACTIVE","spaName":null,"creationDate":"2018-10-24T11:33:31.000+11:00","beginValidityDate":"2018-10-24T11:33:31.000+11:00","endValidityDate":"2020-10-23T23:59:59.000+11:00","beginActivityDate":"2018-10-24T11:33:31.000+11:00","endActivityDate":"2020-10-23T23:59:59.000+11:00","endInactivityDate":"2019-04-27T11:33:31.000+10:00","lowCreditSettings":{"isAutoPaymentEnabled":false,"autoPaymentTriggerThreshold":0,"autoPaymentAmount":0,"isWarningEnabled":false,"warningThreshold":0},"spendLimits":[],"isVoucherTopupEnabled":true,"failedVoucherTopupAttempts":0,"hasHadFirstEvent":true,"isSuspended":false,"language":"EN","customAttributes":{},"mainBalance":{"balanceId":null,"templateId":null,"units":null,"value":0,"type":null,"balanceName":null,"expiryDate":null,"startDate":null,"isSharedBundle":false,"initialAmount":null},"notificationPreferences":{"channels":["sms"],"disableAll":false,"enableMarketingNotifications":null,"enableLowCreditNotifications":false,"options":[{"name":"sms"},{"name":"email"}]},"fnf":null,"lastRechargeAmount":0,"lastRechargeDate":null,"lastTopupProfile":null,"lastCommercialOffer":null,"ocsstatus":"Preactive","spaId":null};
+        const generator = fetchSubscriberDetails(action);
+        expect(generator.next(action.msisdn).value).toEqual(call(fetchSubscriber, action.msisdn));
+        expect(generator.throw('error').value).toEqual(put({ type: types.SUBSCRIBER_REQUEST_FAILED, error: 'error' }));
+
     })
 });
 
-afterEach(() => {
-   moxios.uninstall();
+describe('Subscriber API fetch', () => {
+    beforeEach(() => {
+        moxios.install();
+    });
+    it('can fetch subscriber api', (done) => {
+        const msisdn = '61411111111';
+        let onFulfilled = sinon.spy();
+
+        moxios.stubRequest(`${ENDPOINTS.SUBSCRIBER.GET.URL}${msisdn}`, {
+            status: 200,
+            response: {"msisdn":"61411111111","baid":"3402000425","balances":[],"counters":[{"balanceId":"2","templateId":21112,"units":"Money","value":0,"type":"CURRENCY","balanceName":"INTERNAL","expiryDate":null,"startDate":null,"isSharedBundle":false,"initialAmount":"infinity"}],"accountType":"PrePaid","imsi":"505155412545985","serviceProviderId":"0002","glCode":"SMGNT","accountProfile":"10BOOSTT","commercialOffer":"2GPPLUS","email":"","brandName":"Telstra","isTestService":false,"status":"PREACTIVE","spaName":null,"creationDate":"2018-10-24T11:33:31.000+11:00","beginValidityDate":"2018-10-24T11:33:31.000+11:00","endValidityDate":"2020-10-23T23:59:59.000+11:00","beginActivityDate":"2018-10-24T11:33:31.000+11:00","endActivityDate":"2020-10-23T23:59:59.000+11:00","endInactivityDate":"2019-04-27T11:33:31.000+10:00","lowCreditSettings":{"isAutoPaymentEnabled":false,"autoPaymentTriggerThreshold":0,"autoPaymentAmount":0,"isWarningEnabled":false,"warningThreshold":0},"spendLimits":[],"isVoucherTopupEnabled":true,"failedVoucherTopupAttempts":0,"hasHadFirstEvent":true,"isSuspended":false,"language":"EN","customAttributes":{},"mainBalance":{"balanceId":null,"templateId":null,"units":null,"value":0,"type":null,"balanceName":null,"expiryDate":null,"startDate":null,"isSharedBundle":false,"initialAmount":null},"notificationPreferences":{"channels":["sms"],"disableAll":false,"enableMarketingNotifications":null,"enableLowCreditNotifications":false,"options":[{"name":"sms"},{"name":"email"}]},"fnf":null,"lastRechargeAmount":0,"lastRechargeDate":null,"lastTopupProfile":null,"lastCommercialOffer":null,"ocsstatus":"Preactive","spaId":null}
+        });
+        axios.get(`${ENDPOINTS.SUBSCRIBER.GET.URL}${msisdn}`).then(onFulfilled);
+        moxios.wait(() => {
+            expect(onFulfilled.called).toEqual(true);
+            expect(onFulfilled.getCall(0).args[0].data.msisdn).toEqual('61411111111');
+            done();
+        })
+    });
+    afterEach(() => {
+        moxios.uninstall();
+    });
+
 });
