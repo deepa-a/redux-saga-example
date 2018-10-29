@@ -14,10 +14,23 @@ export function getMsisdn() {
   return JSON.parse(sessionStorage.getItem('msisdn'));
 }
 
+export function fetchSubscriber(msisdn){
+    return axios.get(`${ENDPOINTS.SUBSCRIBER.GET.URL}${msisdn}`).then(response => response.data)
+}
+
+export function saveSubscriber(subscriber){
+    return axios.post(`${ENDPOINTS.SUBSCRIBER.POST.URL}`, subscriber).then(response => response.data);
+}
+
+export function patchSubscriber(msisdn,subscriber){
+    debugger;
+    return axios.patch(`${ENDPOINTS.SUBSCRIBER.PATCH.URL}${msisdn}`, subscriber).then(response => response.data);
+}
+
 function* createSubscriber(action) {
   try {
     const { subscriber } = action;
-    const subscriberDetails = yield axios.post(`${ENDPOINTS.SUBSCRIBER.POST.URL}`, subscriber).then(response => response.data);
+    const subscriberDetails = yield call(saveSubscriber, subscriber);
     yield put({ type: types.CREATE_SUBSCRIBER_SUCCESS, data: subscriberDetails });
   } catch (error) {
     yield put({ type: types.CREATE_SUBSCRIBER_FAILED, error });
@@ -27,15 +40,11 @@ function* createSubscriber(action) {
 function* updateSubscriber(action) {
   try {
     const { subscriber, msisdn } = action;
-    const subscriberDetails = yield axios.patch(`${ENDPOINTS.SUBSCRIBER.PATCH.URL}${msisdn}`, subscriber).then(response => response.data);
+    const subscriberDetails = yield call(patchSubscriber, msisdn, subscriber);
     yield put({ type: types.UPDATE_SUBSCRIBER_SUCCESS, data: subscriberDetails });
   } catch (error) {
     yield put({ type: types.UPDATE_SUBSCRIBER_FAILED, error });
   }
-}
-
-export function fetchSubscriber(msisdn){
-  return axios.get(`${ENDPOINTS.SUBSCRIBER.GET.URL}${msisdn}`).then(response => response.data)
 }
 
 export function* fetchSubscriberDetails(action) {

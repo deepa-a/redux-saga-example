@@ -19,7 +19,7 @@ import { fetchCustomerDetails } from '../sagas/customerSaga';
 import { getSubscriberBaid, getCustomerId } from '../selectors';
 import {  ENDPOINTS } from '../constants/apiEndpoints';
 
-describe('can watch get subscriber action', () => {
+describe('Watch GET_SUBCRIBER action', () => {
     const generator = subscriberWatcher();
     const mockChannel = channel();
     const actChannel = actionChannel(types.GET_SUBSCRIBER);
@@ -44,7 +44,7 @@ describe('can watch get subscriber action', () => {
     });
 });
 
-describe('Fetch subscriber details', () => {
+describe('Fetch subscriber details saga', () => {
     it('can fetch subscriber successfully', () => {
         const action = {
             msisdn: "61411111111",
@@ -68,7 +68,6 @@ describe('Fetch subscriber details', () => {
         const generator = fetchSubscriberDetails(action);
         expect(generator.next(action.msisdn).value).toEqual(call(fetchSubscriber, action.msisdn));
         expect(generator.throw('error').value).toEqual(put({ type: types.SUBSCRIBER_REQUEST_FAILED, error: 'error' }));
-
     })
 });
 

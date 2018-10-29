@@ -1,4 +1,4 @@
-import { all, fork, put, takeLatest } from 'redux-saga/effects';
+import { call, all, fork, put, takeLatest } from 'redux-saga/effects';
 import { subscriberWatcher, subscriberSaga } from 'sagas/subscriberSaga';
 import { customerSaga } from 'sagas/customerSaga';
 import { billingAccountSaga } from 'sagas/billingAccountSaga';
@@ -6,29 +6,28 @@ import * as types from 'actions/actionTypes';
 import { fetchUserRoles } from './getUserRolesSaga';
 
 export default function* rootSaga() {
+  yield  call(fetchUserRoles);
   yield all([
-    fetchUserRoles(),
     subscriberWatcher(),
     subscriberSaga(),
     billingAccountSaga(),
     customerSaga(),
-      /*put({type: types.CREATE_SUBSCRIBER, subscriber: {
+      /* put({type: types.CREATE_SUBSCRIBER, subscriber: {
         "accountProfile": "3GMID00",
         "baid": "",
         "commercialOffer": "2GPPLUS",
         "email": "",
-        "imsi": "505155412535245",
+        "imsi": "505155412565245",
         "isTestService": false,
         "language": null,
-        "msisdn": "61422222222",
+        "msisdn": "61422332222",
         "serviceProviderId": "0002",
         "status": "PREACTIVE"
     }})
        put({type: types.UPDATE_SUBSCRIBER, subscriber: {
           "accountProfile": "10BOOSTM",
-          "baid": "",
       }, msisdn: '61411111111'})
-      put({type: types.CREATE_CUSTOMER, customer:
+     /* put({type: types.CREATE_CUSTOMER, customer:
       {
           "customerId":"1030004256",
           "rou":"BCC",
