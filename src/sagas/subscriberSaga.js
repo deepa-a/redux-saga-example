@@ -6,11 +6,11 @@ import axios from '../utils/axios';
 import { fetchBillingAccountDetails } from './billingAccountSaga';
 import { fetchCustomerDetails } from './customerSaga';
 
-function setMsisdn(msisdn) {
+export function setMsisdn(msisdn) {
   sessionStorage.setItem('msisdn', JSON.stringify(msisdn));
 }
 
-function getMsisdn() {
+export function getMsisdn() {
   return JSON.parse(sessionStorage.getItem('msisdn'));
 }
 
@@ -34,10 +34,14 @@ function* updateSubscriber(action) {
   }
 }
 
+export function fetchSubscriber(msisdn){
+  return axios.get(`${ENDPOINTS.SUBSCRIBER.GET.URL}${msisdn}`).then(response => response.data)
+}
+
 export function* fetchSubscriberDetails(action) {
   try {
     const { msisdn } = action;
-    const subscriberDetails = yield axios.get(`${ENDPOINTS.SUBSCRIBER.GET.URL}${msisdn}`).then(response => response.data);
+    const subscriberDetails = yield call(fetchSubscriber, msisdn);
     yield call(setMsisdn, subscriberDetails.msisdn);
     yield put({ type: types.SUBSCRIBER_RECEIVED, data: subscriberDetails });
   } catch (error) {
