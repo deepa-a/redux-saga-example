@@ -115,11 +115,11 @@ describe('Testing BillingAccount Saga', () => {
         })
     });
 
-    describe('Customer API Test', () => {
+    describe('Billing Account API Test', () => {
         beforeEach(() => {
             moxios.install();
         });
-        it('can fetch billing account api', (done) => {
+        it('can fetch billing account', (done) => {
             const baid = '3402000654';
             let onFulfilled = sinon.spy();
 
@@ -128,6 +128,35 @@ describe('Testing BillingAccount Saga', () => {
                 response: {"baid":"3402000654","customerId":"1020004255","billCycle":25,"nextBillCycle":3,"subscribers":[],"customAttributes":{}}
             });
             axios.get(`${ENDPOINTS.BILLING_ACCOUNT.GET.URL}${baid}`).then(onFulfilled);
+            moxios.wait(() => {
+                expect(onFulfilled.called).toEqual(true);
+                expect(onFulfilled.getCall(0).args[0].data.baid).toEqual('3402000654');
+                done();
+            })
+        });
+        it('should create billing account', (done) => {
+            let onFulfilled  = sinon.spy();
+            const billingAccount = {"baid":"3402000654","customerId":"1020004255","billCycle":"25","nextBillCycle":""};
+            moxios.stubRequest(`${ENDPOINTS.BILLING_ACCOUNT.POST.URL}`, {
+                status: 200,
+                response: {"baid":"3402000654","customerId":"1020004255","billCycle":25,"nextBillCycle":0,"subscribers":[],"customAttributes":{}}
+            });
+            axios.post(`${ENDPOINTS.BILLING_ACCOUNT.POST.URL}`, billingAccount).then(onFulfilled);
+            moxios.wait(() => {
+                expect(onFulfilled.called).toEqual(true);
+                expect(onFulfilled.getCall(0).args[0].data.baid).toEqual('3402000654');
+                done();
+            })
+        });
+        it('should update billing account', (done) => {
+            let onFulfilled  = sinon.spy();
+            const baid = "3402000654";
+            const billingAccount = {"billCycle":"25","nextBillCycle":"3"};
+            moxios.stubRequest(`${ENDPOINTS.BILLING_ACCOUNT.PATCH.URL}`, {
+                status: 200,
+                response: {"baid":"3402000654","customerId":"1020004255","billCycle":25,"nextBillCycle":3,"subscribers":[],"customAttributes":{}}
+            });
+            axios.post(`${ENDPOINTS.BILLING_ACCOUNT.PATCH.URL}`, billingAccount).then(onFulfilled);
             moxios.wait(() => {
                 expect(onFulfilled.called).toEqual(true);
                 expect(onFulfilled.getCall(0).args[0].data.baid).toEqual('3402000654');

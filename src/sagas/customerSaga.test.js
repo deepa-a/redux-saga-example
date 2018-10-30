@@ -119,7 +119,7 @@ describe('Testing Customer Saga', () => {
         beforeEach(() => {
             moxios.install();
         });
-        it('can fetch customer api', (done) => {
+        it('can fetch customer', (done) => {
             const customerId = '1020004257';
             let onFulfilled = sinon.spy();
 
@@ -131,6 +131,36 @@ describe('Testing Customer Saga', () => {
             moxios.wait(() => {
                 expect(onFulfilled.called).toEqual(true);
                 expect(onFulfilled.getCall(0).args[0].data.customerId).toEqual('1020004257');
+                done();
+            })
+        });
+        it('should create customer', (done) => {
+            let onFulfilled  = sinon.spy();
+            const customer = {"customerId":"1020004257","rou":"BCC","postCode":"3023"};
+            moxios.stubRequest(`${ENDPOINTS.CUSTOMER.POST.URL}`, {
+                status: 200,
+                response: {"accounts":[],"customerId":"1020004257","status":null,"spaGroups":[],"birthday":null,"postCode":"3023","rou":"BCC","customAttributes":{},"glCode":null}
+            });
+            axios.post(`${ENDPOINTS.CUSTOMER.POST.URL}`, customer).then(onFulfilled);
+            moxios.wait(() => {
+                expect(onFulfilled.called).toEqual(true);
+                expect(onFulfilled.getCall(0).args[0].data.customerId).toEqual('1020004257');
+                done();
+            })
+        });
+        it('should update customer', (done) => {
+            let onFulfilled  = sinon.spy();
+            const customerId = "1020004257";
+            const customer = {"postCode":"3000"};
+            moxios.stubRequest(`${ENDPOINTS.CUSTOMER.PATCH.URL}`, {
+                status: 200,
+                response: {"accounts":[],"customerId":"1020004257","status":"ACTIVE","spaGroups":[],"birthday":null,"postCode":"3000","rou":"BCC","customAttributes":{},"glCode":null}
+            });
+            axios.post(`${ENDPOINTS.CUSTOMER.PATCH.URL}`, customer).then(onFulfilled);
+            moxios.wait(() => {
+                expect(onFulfilled.called).toEqual(true);
+                expect(onFulfilled.getCall(0).args[0].data.customerId).toEqual('1020004257');
+                expect(onFulfilled.getCall(0).args[0].data.postCode).toEqual('3000');
                 done();
             })
         });
