@@ -8,8 +8,10 @@ import { createSubscriber,
   fetchSubscriberDetails,
   subscriberWatcher,
   fetchSubscriber,
+  removeSubscriber,
   saveSubscriber,
   patchSubscriber,
+  deleteSubscriber,
   setMsisdn } from './subscriberSaga';
 import * as types from '../actions/actionTypes';
 import { fetchBillingAccountDetails } from './billingAccountSaga';
@@ -116,6 +118,28 @@ describe('Testing Subscriber Saga', () => {
       const generator = updateSubscriber(action);
       expect(generator.next(action.subscriber).value).toEqual(call(patchSubscriber, action.msisdn, action.subscriber));
       expect(generator.throw('error').value).toEqual(put({ type: types.UPDATE_SUBSCRIBER_FAILED, error: 'error' }));
+    });
+  });
+
+  describe('Remove subscriber saga', () => {
+    it('can remove subscriber successfully', () => {
+      const action = {
+        type: 'DELETE_SUBSCRIBER',
+        msisdn: '61455555555',
+      };
+      const generator = removeSubscriber(action);
+      expect(generator.next(action.msisdn).value).toEqual(call(deleteSubscriber, action.msisdn));
+      expect(generator.next().value).toEqual(put({ type: types.DELETE_SUBSCRIBER_SUCCESS }));
+    });
+
+    it('can handle exception', () => {
+      const action = {
+        type: 'DELETE_SUBSCRIBER',
+        msisdn: '61455555555',
+      };
+      const generator = removeSubscriber(action);
+      expect(generator.next(action.msisdn).value).toEqual(call(deleteSubscriber, action.msisdn));
+      expect(generator.throw('error').value).toEqual(put({ type: types.DELETE_SUBSCRIBER_FAILED, error: 'error' }));
     });
   });
 

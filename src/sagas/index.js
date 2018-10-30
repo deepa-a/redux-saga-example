@@ -20,11 +20,11 @@ export default function* rootSaga() {
         "imsi": "505155412565245",
         "isTestService": false,
         "language": null,
-        "msisdn": "61422332222",
+        "msisdn": "61411111111",
         "serviceProviderId": "0002",
         "status": "PREACTIVE"
     }})
-       put({type: types.UPDATE_SUBSCRIBER, subscriber: {
+         put({type: types.UPDATE_SUBSCRIBER, subscriber: {
           "accountProfile": "10BOOSTM",
       }, msisdn: '61411111111'})
        put({type: types.CREATE_CUSTOMER, customer:
@@ -48,6 +48,10 @@ export default function* rootSaga() {
       {
           "nextBillCycle":"5"
       }, baid: "3402000420" })
-      put({type: types.GET_BILLING_ACCOUNT, baid: "3402000420" }) */
+      put({type: types.GET_BILLING_ACCOUNT, baid: "3402000420" })
+      put({type: types.GET_SUBSCRIBER, msisdn: '61422332222'}),
+      put({type: types.DELETE_SUBSCRIBER, msisdn: "61422332222" })
+      put({type: types.DELETE_CUSTOMER, customerId: "1020004290" })
+      put({type: types.DELETE_BILLING_ACCOUNT, baid: "3402000425" }) */
   ]);
 }

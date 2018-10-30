@@ -11,6 +11,9 @@ export const ENDPOINTS = {
     PATCH: {
       URL: 'subscribers/',
     },
+    DELETE: {
+      URL: 'subscribers/',
+    },
   },
   CUSTOMER: {
     GET: {
@@ -22,6 +25,9 @@ export const ENDPOINTS = {
     PATCH: {
       URL: 'customers/',
     },
+    DELETE: {
+      URL: 'customers/',
+    },
   },
   BILLING_ACCOUNT: {
     GET: {
@@ -31,6 +37,9 @@ export const ENDPOINTS = {
       URL: 'billingaccounts',
     },
     PATCH: {
+      URL: 'billingaccounts/',
+    },
+    DELETE: {
       URL: 'billingaccounts/',
     },
   },

@@ -20,6 +20,12 @@ export default function billingAccountReducer(state = { isLoading: false }, acti
       return { ...state, isLoading: false, billingDetails: action.data };
     case types.UPDATE_BILLING_ACCOUNT_FAILED:
       return { ...state, isLoading: false, error: action.error };
+    case types.DELETE_BILLING_ACCOUNT:
+      return { ...state, isLoading: true };
+    case types.DELETE_BILLING_ACCOUNT_SUCCESS:
+      return { ...state, isLoading: false, billingDetails: null };
+    case types.DELETE_BILLING_ACCOUNT_FAILED:
+      return { ...state, isLoading: false, error: action.error };
     default:
       return state;
   }

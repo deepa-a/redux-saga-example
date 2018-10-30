@@ -11,3 +11,7 @@ export function createBillingAccount(billingAccount) {
 export function updateBillingAccount(billingAccount, baid) {
   return { type: types.UPDATE_BILLING_ACCOUNT, billingAccount, baid };
 }
+
+export function removeBillingAccount(baid) {
+  return { type: types.DELETE_BILLING_ACCOUNT, baid };
+}

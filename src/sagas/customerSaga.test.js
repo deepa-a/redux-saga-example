@@ -6,6 +6,8 @@ import { fetchCustomer,
   saveCustomer,
   patchCustomer,
   fetchCustomerDetails,
+  removeCustomer,
+  deleteCustomer,
   createCustomer,
   updateCustomer } from './customerSaga';
 import * as types from '../actions/actionTypes';
@@ -106,6 +108,28 @@ describe('Testing Customer Saga', () => {
       const generator = updateCustomer(action);
       expect(generator.next(action.customer).value).toEqual(call(patchCustomer, action.customerId, action.customer));
       expect(generator.throw('error').value).toEqual(put({ type: types.UPDATE_CUSTOMER_FAILED, error: 'error' }));
+    });
+  });
+
+  describe('Remove customer saga', () => {
+    it('can remove customer successfully', () => {
+      const action = {
+        type: 'DELETE_CUSTOMER',
+        customerId: '1020004290',
+      };
+      const generator = removeCustomer(action);
+      expect(generator.next(action.customerId).value).toEqual(call(deleteCustomer, action.customerId));
+      expect(generator.next().value).toEqual(put({ type: types.DELETE_CUSTOMER_SUCCESS }));
+    });
+
+    it('can handle exception', () => {
+      const action = {
+        type: 'DELETE_CUSTOMER',
+        customerId: '1020004290',
+      };
+      const generator = removeCustomer(action);
+      expect(generator.next(action.customerId).value).toEqual(call(deleteCustomer, action.customerId));
+      expect(generator.throw('error').value).toEqual(put({ type: types.DELETE_CUSTOMER_FAILED, error: 'error' }));
     });
   });
 
