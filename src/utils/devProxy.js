@@ -5,7 +5,7 @@ const reverseProxy = httpProxy.createProxyServer();
 const fs = require('fs');
 const path = require('path');
 // Actual URL of the selfcare server
-const targetUrl = 'http://10.50.30.121:8200/';
+const targetUrl = 'http://10.50.30.132:8200/';
 // Surrogate server local listening port
 const proxyPort = '5050';
 const rolesPort = '5060';
@@ -15,7 +15,7 @@ const rolesFilename = 'roles.json';
 reverseProxy.on('proxyRes', (proxyRes, req, res) => {
   res.setHeader('Access-Control-Allow-Credentials', true);
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,POST');
+  res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
   res.setHeader('Access-Control-Allow-Headers', 'application/json');
 });
 
@@ -24,22 +24,31 @@ const surrogate = http.createServer((req, res) => {
   console.log();
   console.log(`-- Request received: ${new Date()}`);
   console.log(req.url);
+  console.log(req.method);
 
-  /**
-   * Must set method to what you need here. Since this proxy
-   * relays requests from the browser, the incoming method is
-   * still OPTIONS which will in turn be sent to the proxy
-   * and causing 500 errors.
-   */
-  req.method = 'GET';
-  // Headers are not send through, so they must be set
-  req.headers = {
-    'ocs-client-id': 'mocca',
-    'ocs-user-id': 'mocca_admin',
-  };
+  if (req.method === 'OPTIONS') {
+    /**
+     * Response to preflight request, for header details please refer to:
+     * https://developer.mozilla.org/en-US/docs/Glossary/preflight_request
+     * The following three headers are compulsory.
+     */
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE, PATCH');
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.end();
+  } else {
+    // You can manually set request method to what you need here
+    // req.method = 'POST';
+    // Compulsory headers required by selfcare server
+    req.headers = {
+      'ocs-user-id': 'mocca_admin',
+      'ocs-client-id': 'mocca',
+      'Content-Type': 'application/json',
+    };
 
-  // Using 'web' mode to relay the requests
-  reverseProxy.web(req, res, { target: targetUrl });
+    // Using 'web' mode to relay the requests
+    reverseProxy.web(req, res, { target: targetUrl });
+  }
 });
 
 surrogate.listen(proxyPort);
@@ -57,7 +66,7 @@ const rolesJson = http.createServer((req, res) => {
       res.setHeader('Content-type', 'application/json' || 'text/plain');
       res.setHeader('Access-Control-Allow-Credentials', true);
       res.setHeader('Access-Control-Allow-Origin', '*');
-      res.setHeader('Access-Control-Allow-Methods', 'GET,POST');
+      res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
       res.setHeader('Access-Control-Allow-Headers', 'application/json');
       res.end(data);
     }

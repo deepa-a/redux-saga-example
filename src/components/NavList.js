@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import * as subActions from 'actions/subscriberActions';
 
 class NavList extends React.Component {
   render() {
-    const { navList } = this.props;
+    const { navList, actions } = this.props;
 
     return (
       <React.Fragment>
@@ -12,7 +15,7 @@ class NavList extends React.Component {
           <ul key={submenu}>
             {navList[submenu].map(item => (
               <li key={item.path}>
-                <Link to={item.path}>
+                <Link to={item.path} onClick={submenu === 'others' ? () => console.log('clear the form') : null}>
                   {item.label}
                 </Link>
               </li>
@@ -25,7 +28,16 @@ class NavList extends React.Component {
 }
 
 NavList.propTypes = {
+  actions: PropTypes.object.isRequired,
   navList: PropTypes.object.isRequired,
 };
 
-export default NavList;
+const mapStateToProps = state => ({
+  subscriberDetails: state.subscriber.subscriberDetails,
+});
+
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(subActions, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavList);

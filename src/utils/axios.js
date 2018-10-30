@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_BASE_URL } from 'constants/apiEndpoints';
+import { API_BASE_URL } from '../constants/apiEndpoints';
 
 const headers = {
   // TODO: enable for production

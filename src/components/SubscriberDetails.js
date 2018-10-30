@@ -24,9 +24,9 @@ SubscriberDetails.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  subscriberDetails: state.subscriber.details,
-  billingAccountDetails: state.billingAccount.details,
-  customerDetails: state.customer.details,
+  subscriberDetails: state.subscriber.subscriberDetails,
+  billingAccountDetails: state.subscriber.billingDetails,
+  customerDetails: state.subscriber.customerDetails,
 });
 
 export default connect(mapStateToProps, null)(SubscriberDetails);
