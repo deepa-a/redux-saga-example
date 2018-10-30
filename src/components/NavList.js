@@ -15,7 +15,7 @@ class NavList extends React.Component {
           <ul key={submenu}>
             {navList[submenu].map(item => (
               <li key={item.path}>
-                <Link to={item.path} onClick={submenu === 'others' ? () => actions.clearSubscriberInfo() : null}>
+                <Link to={item.path} onClick={submenu === 'others' ? () => console.log('clear the form') : null}>
                   {item.label}
                 </Link>
               </li>
