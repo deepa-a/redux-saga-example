@@ -2,8 +2,7 @@ import moxios from 'moxios';
 import axios from 'axios';
 import sinon from 'sinon';
 import { call, put, take, select, actionChannel } from 'redux-saga/effects';
-import { channel, runSaga } from 'redux-saga';
-import { cloneableGenerator } from 'redux-saga/utils';
+import { channel } from 'redux-saga';
 import {
     createSubscriber,
     updateSubscriber,
@@ -14,7 +13,6 @@ import {
     patchSubscriber,
     setMsisdn
 } from '../sagas/subscriberSaga';
-
 import * as types from '../actions/actionTypes';
 import { fetchBillingAccountDetails } from '../sagas/billingAccountSaga';
 import { fetchCustomerDetails } from '../sagas/customerSaga';
@@ -96,8 +94,8 @@ describe('Testing Subscriber Saga', () => {
         afterEach(() => {
             moxios.uninstall();
         });
-
     });
+
     describe('Save subscriber saga', () => {
         it('can create subscriber successfully', () => {
             const action = {

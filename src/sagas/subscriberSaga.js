@@ -1,7 +1,7 @@
 import { all, call, put, take, takeLatest, select, actionChannel } from 'redux-saga/effects';
 import * as types from '../actions/actionTypes';
 import { getSubscriberBaid, getCustomerId } from '../selectors';
-import { API_BASE_URL, ENDPOINTS } from '../constants/apiEndpoints';
+import { ENDPOINTS } from '../constants/apiEndpoints';
 import axios from '../utils/axios';
 import { fetchBillingAccountDetails } from './billingAccountSaga';
 import { fetchCustomerDetails } from './customerSaga';

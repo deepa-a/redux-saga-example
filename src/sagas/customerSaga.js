@@ -1,6 +1,6 @@
 import { all, call, put, take, takeLatest, select } from 'redux-saga/effects';
 import * as types from '../actions/actionTypes';
-import { API_BASE_URL, ENDPOINTS } from '../constants/apiEndpoints';
+import { ENDPOINTS } from '../constants/apiEndpoints';
 import axios from '../utils/axios';
 
 export function fetchCustomer(customerId) {
@@ -30,7 +30,7 @@ export function* fetchCustomerDetails(action) {
 export function* createCustomer(action) {
   try {
     const { customer } = action;
-    const customerDetails = yield call(createCustomer, customer);
+    const customerDetails = yield call(saveCustomer, customer);
     yield put({ type: types.CREATE_CUSTOMER_SUCCESS, data: customerDetails });
   } catch (error) {
     yield put({ type: types.CREATE_CUSTOMER_FAILED, error });
