@@ -14,17 +14,17 @@ export function getMsisdn() {
   return JSON.parse(sessionStorage.getItem('msisdn'));
 }
 
-export function fetchSubscriber(msisdn){
-    return axios.get(`${ENDPOINTS.SUBSCRIBER.GET.URL}${msisdn}`).then(response => response.data)
+export function fetchSubscriber(msisdn) {
+  return axios.get(`${ENDPOINTS.SUBSCRIBER.GET.URL}${msisdn}`).then(response => response.data);
 }
 
-export function saveSubscriber(subscriber){
-    return axios.post(`${ENDPOINTS.SUBSCRIBER.POST.URL}`, subscriber).then(response => response.data);
+export function saveSubscriber(subscriber) {
+  return axios.post(`${ENDPOINTS.SUBSCRIBER.POST.URL}`, subscriber).then(response => response.data);
 }
 
-export function patchSubscriber(msisdn,subscriber){
-    debugger;
-    return axios.patch(`${ENDPOINTS.SUBSCRIBER.PATCH.URL}${msisdn}`, subscriber).then(response => response.data);
+export function patchSubscriber(msisdn, subscriber) {
+  debugger;
+  return axios.patch(`${ENDPOINTS.SUBSCRIBER.PATCH.URL}${msisdn}`, subscriber).then(response => response.data);
 }
 
 export function* createSubscriber(action) {
@@ -77,8 +77,8 @@ export function* subscriberWatcher() {
 }
 
 export function* subscriberSaga() {
-    yield all( [
-        takeLatest(types.CREATE_SUBSCRIBER, createSubscriber),
-        takeLatest(types.UPDATE_SUBSCRIBER, updateSubscriber),
-    ])
+  yield all([
+    takeLatest(types.CREATE_SUBSCRIBER, createSubscriber),
+    takeLatest(types.UPDATE_SUBSCRIBER, updateSubscriber),
+  ]);
 }

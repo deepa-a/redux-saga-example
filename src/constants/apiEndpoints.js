@@ -25,7 +25,7 @@ export const ENDPOINTS = {
   },
   BILLING_ACCOUNT: {
     GET: {
-      URL: 'billingaccounts/'
+      URL: 'billingaccounts/',
     },
     POST: {
       URL: 'billingaccounts',

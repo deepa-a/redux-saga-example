@@ -1,18 +1,18 @@
-import { all, call, put, take, takeLatest, select } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 import * as types from '../actions/actionTypes';
-import { API_BASE_URL, ENDPOINTS } from '../constants/apiEndpoints';
+import { ENDPOINTS } from '../constants/apiEndpoints';
 import axios from '../utils/axios';
 
 export function fetchBillingAccount(baid) {
-    return axios.get(`${ENDPOINTS.BILLING_ACCOUNT.GET.URL}${baid}`).then(response => response.data);
+  return axios.get(`${ENDPOINTS.BILLING_ACCOUNT.GET.URL}${baid}`).then(response => response.data);
 }
 
 export function saveBillingAccount(billingAccount) {
-    return axios.post(`${ENDPOINTS.BILLING_ACCOUNT.POST.URL}`, billingAccount).then(response => response.data);
+  return axios.post(`${ENDPOINTS.BILLING_ACCOUNT.POST.URL}`, billingAccount).then(response => response.data);
 }
 
 export function patchBillingAccount(baid, billingAccount) {
-    return axios.patch(`${ENDPOINTS.BILLING_ACCOUNT.PATCH.URL}${baid}`, billingAccount).then(response => response.data);
+  return axios.patch(`${ENDPOINTS.BILLING_ACCOUNT.PATCH.URL}${baid}`, billingAccount).then(response => response.data);
 }
 
 export function* fetchBillingAccountDetails(action) {
@@ -48,9 +48,9 @@ export function* updateBillingAccount(action) {
 }
 
 export function* billingAccountSaga() {
-    yield all([
-      takeLatest(types.CREATE_BILLING_ACCOUNT, createBillingAccount),
-      takeLatest(types.GET_BILLING_ACCOUNT, fetchBillingAccountDetails),
-      takeLatest(types.UPDATE_BILLING_ACCOUNT, updateBillingAccount),
-    ])
+  yield all([
+    takeLatest(types.CREATE_BILLING_ACCOUNT, createBillingAccount),
+    takeLatest(types.GET_BILLING_ACCOUNT, fetchBillingAccountDetails),
+    takeLatest(types.UPDATE_BILLING_ACCOUNT, updateBillingAccount),
+  ]);
 }

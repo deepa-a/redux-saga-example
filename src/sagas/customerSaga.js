@@ -1,18 +1,18 @@
-import { all, call, put, take, takeLatest, select } from 'redux-saga/effects';
+import { all, call, put, takeLatest, select } from 'redux-saga/effects';
 import * as types from '../actions/actionTypes';
 import { ENDPOINTS } from '../constants/apiEndpoints';
 import axios from '../utils/axios';
 
 export function fetchCustomer(customerId) {
-    return axios.get(`${ENDPOINTS.CUSTOMER.GET.URL}${customerId}`).then(response => response.data);
+  return axios.get(`${ENDPOINTS.CUSTOMER.GET.URL}${customerId}`).then(response => response.data);
 }
 
 export function saveCustomer(customer) {
-    return axios.post(`${ENDPOINTS.CUSTOMER.POST.URL}`, customer).then(response => response.data);
+  return axios.post(`${ENDPOINTS.CUSTOMER.POST.URL}`, customer).then(response => response.data);
 }
 
 export function patchCustomer(customerId, customer) {
-    return axios.patch(`${ENDPOINTS.CUSTOMER.PATCH.URL}${customerId}`, customer).then(response => response.data);
+  return axios.patch(`${ENDPOINTS.CUSTOMER.PATCH.URL}${customerId}`, customer).then(response => response.data);
 }
 
 export function* fetchCustomerDetails(action) {
@@ -52,5 +52,5 @@ export function* customerSaga() {
     takeLatest(types.GET_CUSTOMER, fetchCustomerDetails),
     takeLatest(types.CREATE_CUSTOMER, createCustomer),
     takeLatest(types.UPDATE_CUSTOMER, updateCustomer),
-  ])
+  ]);
 }

@@ -1,2 +1,2 @@
-export { getSubscriberBaid } from '../selectors/getSubscriberBaid';
-export { getCustomerId } from '../selectors/getCustomerId';
+export { getSubscriberBaid } from './getSubscriberBaid';
+export { getCustomerId } from './getCustomerId';

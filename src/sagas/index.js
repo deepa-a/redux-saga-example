@@ -6,13 +6,13 @@ import * as types from 'actions/actionTypes';
 import { fetchUserRoles } from './getUserRolesSaga';
 
 export default function* rootSaga() {
-  yield  call(fetchUserRoles);
+  yield call(fetchUserRoles);
   yield all([
     subscriberWatcher(),
     subscriberSaga(),
     billingAccountSaga(),
     customerSaga(),
-      /* put({type: types.CREATE_SUBSCRIBER, subscriber: {
+    /* put({type: types.CREATE_SUBSCRIBER, subscriber: {
         "accountProfile": "3GMID00",
         "baid": "",
         "commercialOffer": "2GPPLUS",
@@ -27,28 +27,27 @@ export default function* rootSaga() {
        put({type: types.UPDATE_SUBSCRIBER, subscriber: {
           "accountProfile": "10BOOSTM",
       }, msisdn: '61411111111'})
-     /* put({type: types.CREATE_CUSTOMER, customer:
+       put({type: types.CREATE_CUSTOMER, customer:
       {
-          "customerId":"1030004256",
+          "customerId":"1030004258",
           "rou":"BCC",
           "postCode":"3000"
       }}),
       put({type: types.UPDATE_CUSTOMER, customer:
       {
             "postCode":"3003"
-      }, customerId: "1030004256" })
-      put({type: types.GET_CUSTOMER, customerId: "1030004256" })
+     put({type: types.GET_CUSTOMER, customerId: "1030004256" })
       put({type: types.CREATE_BILLING_ACCOUNT, billingAccount:
       {
-          "customerId":"1020004255",
-          "baid":"3402000426",
+          "customerId":"1030004258",
+          "baid":"3402000420",
           "billCycle":"5",
           "nextBillCycle":""
       }})
       put({type: types.UPDATE_BILLING_ACCOUNT, billingAccount:
       {
           "nextBillCycle":"5"
-      }, baid: "3402000426" })
-      put({type: types.GET_BILLING_ACCOUNT, baid: "3402000426" })*/
+      }, baid: "3402000420" })
+      put({type: types.GET_BILLING_ACCOUNT, baid: "3402000420" }) */
   ]);
 }

@@ -1,11 +1,11 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import * as types from 'actions/actionTypes';
-import { API_BASE_URL, ENDPOINTS } from '../constants/apiEndpoints';
+import * as types from '../actions/actionTypes';
+import { ENDPOINTS } from '../constants/apiEndpoints';
 import axios from '../utils/axios';
 
 
 export function fetchUsers() {
-    return axios.get('http://127.0.0.1:5060').then(response => response.data);
+  return axios.get('http://127.0.0.1:5060').then(response => response.data);
 }
 
 export function* fetchUserRoles() {
