@@ -27,7 +27,7 @@ export function patchSubscriber(msisdn,subscriber){
     return axios.patch(`${ENDPOINTS.SUBSCRIBER.PATCH.URL}${msisdn}`, subscriber).then(response => response.data);
 }
 
-function* createSubscriber(action) {
+export function* createSubscriber(action) {
   try {
     const { subscriber } = action;
     const subscriberDetails = yield call(saveSubscriber, subscriber);
@@ -37,7 +37,7 @@ function* createSubscriber(action) {
   }
 }
 
-function* updateSubscriber(action) {
+export function* updateSubscriber(action) {
   try {
     const { subscriber, msisdn } = action;
     const subscriberDetails = yield call(patchSubscriber, msisdn, subscriber);
