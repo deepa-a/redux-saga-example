@@ -23,8 +23,22 @@ export function saveSubscriber(subscriber) {
 }
 
 export function patchSubscriber(msisdn, subscriber) {
-  debugger;
   return axios.patch(`${ENDPOINTS.SUBSCRIBER.PATCH.URL}${msisdn}`, subscriber).then(response => response.data);
+}
+
+export function deleteSubscriber(msisdn) {
+  return axios.delete(`${ENDPOINTS.SUBSCRIBER.DELETE.URL}${msisdn}`).then(response => response);
+}
+
+export function* fetchSubscriberDetails(action) {
+  try {
+    const { msisdn } = action;
+    const subscriberDetails = yield call(fetchSubscriber, msisdn);
+    yield call(setMsisdn, subscriberDetails.msisdn);
+    yield put({ type: types.SUBSCRIBER_RECEIVED, data: subscriberDetails });
+  } catch (error) {
+    yield put({ type: types.SUBSCRIBER_REQUEST_FAILED, error });
+  }
 }
 
 export function* createSubscriber(action) {
@@ -47,14 +61,13 @@ export function* updateSubscriber(action) {
   }
 }
 
-export function* fetchSubscriberDetails(action) {
+export function* removeSubscriber(action) {
   try {
     const { msisdn } = action;
-    const subscriberDetails = yield call(fetchSubscriber, msisdn);
-    yield call(setMsisdn, subscriberDetails.msisdn);
-    yield put({ type: types.SUBSCRIBER_RECEIVED, data: subscriberDetails });
+    yield call(deleteSubscriber, msisdn);
+    yield put({ type: types.DELETE_SUBSCRIBER_SUCCESS });
   } catch (error) {
-    yield put({ type: types.SUBSCRIBER_REQUEST_FAILED, error });
+    yield put({ type: types.DELETE_SUBSCRIBER_FAILED, error });
   }
 }
 
@@ -80,5 +93,6 @@ export function* subscriberSaga() {
   yield all([
     takeLatest(types.CREATE_SUBSCRIBER, createSubscriber),
     takeLatest(types.UPDATE_SUBSCRIBER, updateSubscriber),
+    takeLatest(types.DELETE_SUBSCRIBER, removeSubscriber),
   ]);
 }

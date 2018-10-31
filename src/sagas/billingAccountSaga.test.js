@@ -5,6 +5,8 @@ import { call, put } from 'redux-saga/effects';
 import { fetchBillingAccount,
   saveBillingAccount,
   patchBillingAccount,
+  removeBillingAccount,
+  deleteBillingAccount,
   fetchBillingAccountDetails,
   createBillingAccount,
   updateBillingAccount } from './billingAccountSaga';
@@ -106,6 +108,28 @@ describe('Testing BillingAccount Saga', () => {
       const generator = updateBillingAccount(action);
       expect(generator.next(action.billingAccount).value).toEqual(call(patchBillingAccount, action.baid, action.billingAccount));
       expect(generator.throw('error').value).toEqual(put({ type: types.UPDATE_BILLING_ACCOUNT_FAILED, error: 'error' }));
+    });
+  });
+
+  describe('Remove billing account saga', () => {
+    it('can remove billing account successfully', () => {
+      const action = {
+        type: 'DELETE_BILLING_ACCOUNT',
+        baid: '3402000425',
+      };
+      const generator = removeBillingAccount(action);
+      expect(generator.next(action.baid).value).toEqual(call(deleteBillingAccount, action.baid));
+      expect(generator.next().value).toEqual(put({ type: types.DELETE_BILLING_ACCOUNT_SUCCESS }));
+    });
+
+    it('can handle exception', () => {
+      const action = {
+        type: 'DELETE_BILLING_ACCOUNT',
+        baid: '3402000425',
+      };
+      const generator = removeBillingAccount(action);
+      expect(generator.next(action.baid).value).toEqual(call(deleteBillingAccount, action.baid));
+      expect(generator.throw('error').value).toEqual(put({ type: types.DELETE_BILLING_ACCOUNT_FAILED, error: 'error' }));
     });
   });
 

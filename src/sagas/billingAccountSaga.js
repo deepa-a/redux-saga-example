@@ -15,6 +15,10 @@ export function patchBillingAccount(baid, billingAccount) {
   return axios.patch(`${ENDPOINTS.BILLING_ACCOUNT.PATCH.URL}${baid}`, billingAccount).then(response => response.data);
 }
 
+export function deleteBillingAccount(baid) {
+  return axios.delete(`${ENDPOINTS.BILLING_ACCOUNT.DELETE.URL}${baid}`).then(response => response);
+}
+
 export function* fetchBillingAccountDetails(action) {
   const { flag, baid } = action;
   try {
@@ -47,10 +51,21 @@ export function* updateBillingAccount(action) {
   }
 }
 
+export function* removeBillingAccount(action) {
+  try {
+    const { baid } = action;
+    yield call(deleteBillingAccount, baid);
+    yield put({ type: types.DELETE_BILLING_ACCOUNT_SUCCESS });
+  } catch (error) {
+    yield put({ type: types.DELETE_BILLING_ACCOUNT_FAILED, error });
+  }
+}
+
 export function* billingAccountSaga() {
   yield all([
     takeLatest(types.CREATE_BILLING_ACCOUNT, createBillingAccount),
     takeLatest(types.GET_BILLING_ACCOUNT, fetchBillingAccountDetails),
     takeLatest(types.UPDATE_BILLING_ACCOUNT, updateBillingAccount),
+    takeLatest(types.DELETE_BILLING_ACCOUNT, removeBillingAccount),
   ]);
 }

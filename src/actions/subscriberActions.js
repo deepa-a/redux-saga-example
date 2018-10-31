@@ -11,3 +11,7 @@ export function createSubscriber(subscriber) {
 export function updateSubscriber(subscriber, msisdn) {
   return { type: types.UPDATE_SUBSCRIBER, subscriber, msisdn };
 }
+
+export function removeSubscriber(msisdn) {
+  return { type: types.DELETE_SUBSCRIBER, msisdn };
+}

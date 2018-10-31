@@ -15,6 +15,10 @@ export function patchCustomer(customerId, customer) {
   return axios.patch(`${ENDPOINTS.CUSTOMER.PATCH.URL}${customerId}`, customer).then(response => response.data);
 }
 
+export function deleteCustomer(customerId) {
+  return axios.delete(`${ENDPOINTS.CUSTOMER.DELETE.URL}${customerId}`).then(response => response);
+}
+
 export function* fetchCustomerDetails(action) {
   const { flag, customerId } = action;
   try {
@@ -47,10 +51,21 @@ export function* updateCustomer(action) {
   }
 }
 
+export function* removeCustomer(action) {
+  try {
+    const { customerId } = action;
+    yield call(deleteCustomer, customerId);
+    yield put({ type: types.DELETE_CUSTOMER_SUCCESS });
+  } catch (error) {
+    yield put({ type: types.DELETE_CUSTOMER_FAILED, error });
+  }
+}
+
 export function* customerSaga() {
   yield all([
     takeLatest(types.GET_CUSTOMER, fetchCustomerDetails),
     takeLatest(types.CREATE_CUSTOMER, createCustomer),
     takeLatest(types.UPDATE_CUSTOMER, updateCustomer),
+    takeLatest(types.DELETE_CUSTOMER, removeCustomer),
   ]);
 }

@@ -11,3 +11,7 @@ export function createCustomer(customer) {
 export function updateCustomer(customer, customerId) {
   return { type: types.UPDATE_CUSTOMER, customer, customerId };
 }
+
+export function removeCustomer(customerId) {
+  return { type: types.DELETE_CUSTOMER, customerId };
+}

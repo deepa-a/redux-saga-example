@@ -20,6 +20,12 @@ export default function customerReducer(state = { isLoading: false }, action = n
       return { ...state, isLoading: false, customerDetails: action.data };
     case types.UPDATE_CUSTOMER_FAILED:
       return { ...state, isLoading: false, error: action.error };
+    case types.DELETE_CUSTOMER:
+      return { ...state, isLoading: true };
+    case types.DELETE_CUSTOMER_SUCCESS:
+      return { ...state, isLoading: false, customerDetails: null };
+    case types.DELETE_CUSTOMER_FAILED:
+      return { ...state, isLoading: false, error: action.error };
     default:
       return state;
   }
