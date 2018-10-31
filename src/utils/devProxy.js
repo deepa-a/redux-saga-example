@@ -9,7 +9,9 @@ const targetUrl = 'http://10.50.30.132:8200/';
 // Surrogate server local listening port
 const proxyPort = '5050';
 const rolesPort = '5060';
-const rolesFilename = 'roles.json';
+const rechargeTypesPort = '5070';
+const rolesFilename = '../static/roles.json';
+const topupTypesFilename = '../static/rechargeTypes.json';
 
 // Must set CORS headers to avoid CORB in Chrome (doesn't work in Firefox)
 reverseProxy.on('proxyRes', (proxyRes, req, res) => {
@@ -73,7 +75,26 @@ const rolesJson = http.createServer((req, res) => {
   });
 });
 
+const rechargeTypesJson = http.createServer((req, res) => {
+  // Read the recharge types from a local JSON file
+  fs.readFile(path.join(__dirname, topupTypesFilename), (err, data) => {
+    if (err) {
+      res.statusCode = 500;
+      res.end(`Error getting the file: ${err}.`);
+    } else {
+      res.setHeader('Content-type', 'application/json' || 'text/plain');
+      res.setHeader('Access-Control-Allow-Credentials', true);
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('Access-Control-Allow-Methods', 'OPTIONS, GET, POST');
+      res.setHeader('Access-Control-Allow-Headers', 'application/json');
+      res.end(data);
+    }
+  });
+});
+
+
 rolesJson.listen(rolesPort);
+rechargeTypesJson.listen(rechargeTypesPort);
 
 console.log(`-- Rights proxy is listening on port ${rolesPort}`);
 console.log();
