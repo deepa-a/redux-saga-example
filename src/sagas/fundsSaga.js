@@ -4,7 +4,7 @@ import { ENDPOINTS } from '../constants/apiEndpoints';
 import * as types from '../actions/actionTypes';
 
 export function fetchTopupTypes() {
-  return axios.get('http://127.0.0.1:5070').then(response => response.data);
+  return axios.get('http://127.0.0.1:5060?file=rechargeTypes').then(response => response.data);
 }
 
 export function fetchTopupProfiles(commercialOffer) {
@@ -83,7 +83,6 @@ export function* getCommercialOffers(action) {
     yield put({ type: types.GET_COMMERCIAL_OFFERS_FAILED, error });
   }
 }
-
 
 export function* fundsSaga() {
   yield all([
