@@ -34,4 +34,15 @@ export const ENDPOINTS = {
       URL: 'billingaccounts/',
     },
   },
+  SUBSCRIPTIONS: {
+    GET: {
+      URL: 'subscribers/',
+    },
+    POST: {
+      URL: 'subscribers/',
+    },
+    DELETE: {
+      URL: 'subscribers/',
+    },
+  },
 };
