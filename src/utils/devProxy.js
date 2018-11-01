@@ -8,8 +8,7 @@ const path = require('path');
 const targetUrl = 'http://10.50.30.132:8200/';
 // Surrogate server local listening port
 const proxyPort = '5050';
-const rolesPort = '5060';
-const rolesFilename = 'roles.json';
+const fileServerPort = '5060';
 
 // Must set CORS headers to avoid CORB in Chrome (doesn't work in Firefox)
 reverseProxy.on('proxyRes', (proxyRes, req, res) => {
@@ -20,7 +19,7 @@ reverseProxy.on('proxyRes', (proxyRes, req, res) => {
 });
 
 // Surrogate server for local dev to access
-const surrogate = http.createServer((req, res) => {
+const surrogateServer = http.createServer((req, res) => {
   console.log();
   console.log(`-- Request received: ${new Date()}`);
   console.log(req.url);
@@ -51,14 +50,24 @@ const surrogate = http.createServer((req, res) => {
   }
 });
 
-surrogate.listen(proxyPort);
+surrogateServer.listen(proxyPort);
 
-console.log(`-- Selfcare proxy is listening on port ${proxyPort}`);
+console.log(`-- Selfcare proxy running on port ${proxyPort}`);
 console.log();
 
-const rolesJson = http.createServer((req, res) => {
+const fileServer = http.createServer((req, res) => {
+  let filename = '';
+  const params = (req.url.substr(req.url.indexOf('?') + 1)).split('&');
+
+  params.forEach((p) => {
+    const pArr = p.split('=');
+    if (pArr[0] === 'file') {
+      [, filename] = pArr;
+    }
+  });
+
   // Read the roles from a local JSON file
-  fs.readFile(path.join(__dirname, rolesFilename), (err, data) => {
+  fs.readFile(path.join(__dirname, `../static/${filename}.json`), (err, data) => {
     if (err) {
       res.statusCode = 500;
       res.end(`Error getting the file: ${err}.`);
@@ -73,7 +82,7 @@ const rolesJson = http.createServer((req, res) => {
   });
 });
 
-rolesJson.listen(rolesPort);
+fileServer.listen(fileServerPort);
 
-console.log(`-- Rights proxy is listening on port ${rolesPort}`);
+console.log(`-- File server running on port ${fileServerPort}`);
 console.log();

@@ -3,9 +3,8 @@ import * as types from '../actions/actionTypes';
 import { ENDPOINTS } from '../constants/apiEndpoints';
 import axios from '../utils/axios';
 
-
 export function fetchUsers() {
-  return axios.get('http://127.0.0.1:5060').then(response => response.data);
+  return axios.get('http://127.0.0.1:5060?file=roles').then(response => response.data);
 }
 
 export function* fetchUserRoles() {

@@ -43,4 +43,36 @@ export const ENDPOINTS = {
       URL: 'billingaccounts/',
     },
   },
+  FUNDS: {
+    RECHARGE_TYPE: {
+      GET: {
+        URL: 'static/rechargeTypes.json',
+      },
+    },
+    TOPUP_PROFILE: {
+      GET: {
+        URL: 'commercialoffers/',
+      },
+    },
+    ADJUSTMENT: {
+      GET: {
+        URL: 'adjustmentreasons/',
+      },
+    },
+    FEE_RATING_RULE: {
+      GET: {
+        URL: 'adhoccharges/',
+      },
+    },
+    PLUS_PACKS: {
+      GET: {
+        URL: 'commercialoffers/',
+      },
+    },
+    COMMERCIAL_OFFER: {
+      GET: {
+        URL: 'commercialoffers/',
+      },
+    },
+  },
 };
