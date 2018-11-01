@@ -75,4 +75,15 @@ export const ENDPOINTS = {
       },
     },
   },
+  SUBSCRIPTIONS: {
+    GET: {
+      URL: 'subscribers/',
+    },
+    POST: {
+      URL: 'subscribers/',
+    },
+    DELETE: {
+      URL: 'subscribers/',
+    },
+  },
 };
