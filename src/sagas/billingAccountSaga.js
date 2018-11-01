@@ -61,11 +61,9 @@ export function* removeBillingAccount(action) {
   }
 }
 
-export function* billingAccountSaga() {
-  yield all([
-    takeLatest(types.CREATE_BILLING_ACCOUNT, createBillingAccount),
-    takeLatest(types.GET_BILLING_ACCOUNT, fetchBillingAccountDetails),
-    takeLatest(types.UPDATE_BILLING_ACCOUNT, updateBillingAccount),
-    takeLatest(types.DELETE_BILLING_ACCOUNT, removeBillingAccount),
-  ]);
-}
+export const billingAccountSaga = [
+  takeLatest(types.CREATE_BILLING_ACCOUNT, createBillingAccount),
+  takeLatest(types.GET_BILLING_ACCOUNT, fetchBillingAccountDetails),
+  takeLatest(types.UPDATE_BILLING_ACCOUNT, updateBillingAccount),
+  takeLatest(types.DELETE_BILLING_ACCOUNT, removeBillingAccount),
+];

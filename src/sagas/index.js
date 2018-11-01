@@ -2,17 +2,19 @@ import { call, all, fork, put, takeLatest } from 'redux-saga/effects';
 import { subscriberWatcher, subscriberSaga } from 'sagas/subscriberSaga';
 import { customerSaga } from 'sagas/customerSaga';
 import { billingAccountSaga } from 'sagas/billingAccountSaga';
+import { subscriptionSaga } from 'sagas/subscriptionSaga';
 import { fundsSaga } from 'sagas/fundsSaga';
 import * as types from 'actions/actionTypes';
-import { fetchUserRoles } from './getUserRolesSaga';
+import { userRoleSaga } from './getUserRolesSaga';
 
 export default function* rootSaga() {
-  yield call(fetchUserRoles);
   yield all([
     subscriberWatcher(),
-    subscriberSaga(),
-    billingAccountSaga(),
-    customerSaga(),
-    fundsSaga(),
+    ...userRoleSaga,
+    ...fundsSaga,
+    ...customerSaga,
+    ...billingAccountSaga,
+    ...subscriberSaga,
+    ...subscriptionSaga,
   ]);
 }

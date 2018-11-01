@@ -61,11 +61,9 @@ export function* removeCustomer(action) {
   }
 }
 
-export function* customerSaga() {
-  yield all([
-    takeLatest(types.GET_CUSTOMER, fetchCustomerDetails),
-    takeLatest(types.CREATE_CUSTOMER, createCustomer),
-    takeLatest(types.UPDATE_CUSTOMER, updateCustomer),
-    takeLatest(types.DELETE_CUSTOMER, removeCustomer),
-  ]);
-}
+export const customerSaga = [
+  takeLatest(types.GET_CUSTOMER, fetchCustomerDetails),
+  takeLatest(types.CREATE_CUSTOMER, createCustomer),
+  takeLatest(types.UPDATE_CUSTOMER, updateCustomer),
+  takeLatest(types.DELETE_CUSTOMER, removeCustomer),
+];

@@ -51,10 +51,8 @@ export function* removeSubscription(action) {
   }
 }
 
-export function* subscriptionSaga() {
-  yield all([
-    takeLatest(types.GET_SUBSCRIPTIONS, getSubscriptions),
-    takeLatest(types.ADD_SUBSCRIPTION, addSubscription),
-    takeLatest(types.DELETE_SUBSCRIPTION, removeSubscription),
-  ]);
-}
+export const subscriptionSaga = [
+  takeLatest(types.GET_SUBSCRIPTIONS, getSubscriptions),
+  takeLatest(types.ADD_SUBSCRIPTION, addSubscription),
+  takeLatest(types.DELETE_SUBSCRIPTION, removeSubscription),
+];

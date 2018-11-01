@@ -89,10 +89,8 @@ export function* subscriberWatcher() {
   }
 }
 
-export function* subscriberSaga() {
-  yield all([
-    takeLatest(types.CREATE_SUBSCRIBER, createSubscriber),
-    takeLatest(types.UPDATE_SUBSCRIBER, updateSubscriber),
-    takeLatest(types.DELETE_SUBSCRIBER, removeSubscriber),
-  ]);
-}
+export const subscriberSaga = [
+  takeLatest(types.CREATE_SUBSCRIBER, createSubscriber),
+  takeLatest(types.UPDATE_SUBSCRIBER, updateSubscriber),
+  takeLatest(types.DELETE_SUBSCRIBER, removeSubscriber),
+];

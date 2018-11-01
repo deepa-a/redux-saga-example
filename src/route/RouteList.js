@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from 'components/Home';
 import SubscriberDetails from 'components/SubscriberDetails';
+import Recharge from '../components/funds/recharge';
 import RouteSchema from './RouteSchema';
 
 /* TODO delete this component when all the components are replaced */
@@ -23,7 +24,7 @@ const sharedArrangements = new RouteSchema('/shared-arrangements', InterimCompon
 const ttiWeb = new RouteSchema('/TTI_WEB', InterimComponent, 'VMS Management GUI', null, false, ['MOCCA_VMS']);
 
 /* Funds routes */
-const fundsRecharge = new RouteSchema('/funds/recharge', InterimComponent, 'Recharge', null, false, ['MOCCA_CREATE_FUNDS', 'MOCCA_MODIFY_SUBSCRIBER']);
+const fundsRecharge = new RouteSchema('/funds/recharge', Recharge, 'Recharge', null, false, ['MOCCA_CREATE_FUNDS', 'MOCCA_MODIFY_SUBSCRIBER']);
 const fundsAdjustments = new RouteSchema('/funds/adjustments', InterimComponent, 'Adjustments', null, false, ['MOCCA_CREATE_FUNDS', 'MOCCA_MODIFY_SUBSCRIBER']);
 const fundsImmediateChanging = new RouteSchema('/funds/immediate-changing', InterimComponent, 'Immediate Charging', null, false, ['MOCCA_CREATE_FUNDS', 'MOCCA_MODIFY_SUBSCRIBER']);
 const fundsPurchaseBundle = new RouteSchema('/funds/purchase-bundle', InterimComponent, 'Purchase Bundle', null, false, ['MOCCA_CREATE_FUNDS', 'MOCCA_MODIFY_SUBSCRIBER']);

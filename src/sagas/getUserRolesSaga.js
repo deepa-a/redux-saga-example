@@ -9,10 +9,11 @@ export function fetchUsers() {
 
 export function* fetchUserRoles() {
   try {
-    yield put({ type: types.GET_USER_ROLES });
     const roles = yield call(fetchUsers);
     yield put({ type: types.USER_ROLES_RECEIVED, data: roles });
   } catch (error) {
     yield put({ type: types.USER_ROLES_REQUEST_FAILED, error });
   }
 }
+
+export const userRoleSaga = [takeLatest(types.GET_USER_ROLES, fetchUserRoles)];

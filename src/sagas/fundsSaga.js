@@ -84,13 +84,11 @@ export function* getCommercialOffers(action) {
   }
 }
 
-export function* fundsSaga() {
-  yield all([
-    takeLatest(types.GET_RECHARGE_TYPES, getRechargeTypes),
-    takeLatest(types.GET_RECHARGE_PROFILES, getRechargeProfiles),
-    takeLatest(types.GET_ADJUSTMENT_REASONS, getAdjustmentReasons),
-    takeLatest(types.GET_FEE_RATING_RULE, getFeeRatingRule),
-    takeLatest(types.GET_PLUS_PACKS, getPlusPacks),
-    takeLatest(types.GET_COMMERCIAL_OFFERS, getCommercialOffers),
-  ]);
-}
+export const fundsSaga = [
+  takeLatest(types.GET_RECHARGE_TYPES, getRechargeTypes),
+  takeLatest(types.GET_RECHARGE_PROFILES, getRechargeProfiles),
+  takeLatest(types.GET_ADJUSTMENT_REASONS, getAdjustmentReasons),
+  takeLatest(types.GET_FEE_RATING_RULE, getFeeRatingRule),
+  takeLatest(types.GET_PLUS_PACKS, getPlusPacks),
+  takeLatest(types.GET_COMMERCIAL_OFFERS, getCommercialOffers),
+];
